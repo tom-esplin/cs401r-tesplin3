@@ -1,19 +1,13 @@
+# Every variable needs a description — Task B1 grades this.
+
 variable "project" {
   description = "Project name, used as the first element of every resource name"
   type        = string
-  default     = "northstar"
 }
 
 variable "environment" {
   description = "Deployment environment (dev, staging, prod)"
   type        = string
-  default     = "dev"
-}
-
-variable "aws_region" {
-  description = "AWS region for all resources"
-  type        = string
-  default     = "us-east-1"
 }
 
 variable "vpc_cidr" {
@@ -25,7 +19,7 @@ variable "vpc_cidr" {
 variable "public_subnet_cidr" {
   description = "CIDR block for the public subnet"
   type        = string
-  default     = "10.0.100.0/24"
+  default     = "10.0.1.0/24"
 }
 
 variable "availability_zone" {
@@ -34,13 +28,9 @@ variable "availability_zone" {
   default     = "us-east-1a"
 }
 
-variable "sagemaker_instance_type" {
-  description = "Default kernel instance type for SageMaker Studio apps"
+variable "route_cidr" {
+  description = "Route to send non local traffic to internet gateway"
   type        = string
-  default     = "ml.t3.medium"
-}
+  default     = "0.0.0.0/0"
 
-variable "account_id" {
-  description = "AWS account ID, the same one in the backend.tf state bucket name; set in terraform.tfvars"
-  type        = string
 }

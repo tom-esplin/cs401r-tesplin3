@@ -1,8 +1,10 @@
 # Task B4. Copy to terraform.tfvars and adjust if needed. terraform.tfvars is
 # gitignored and must never be committed; this .example file is committed.
-# Every value below is also the variable's default, so an empty
-# terraform.tfvars is a valid one.
+# Every value below except account_id is also the variable's default.
+# account_id has no default: use the same account ID that
+# scripts/bootstrap-state.sh put in backend.tf's bucket name.
 
+account_id              = "YOUR_ACCOUNT_ID"
 project                 = "northstar"
 environment             = "dev"
 aws_region              = "us-east-1"
