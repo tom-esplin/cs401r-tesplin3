@@ -11,13 +11,15 @@ module "vpc" {
   project            = var.project
   environment        = var.environment
   public_subnet_cidr = var.public_subnet_cidr
+  enable_nat_gateway = false
 }
 
 module "storage" {
-  source      = "../../modules/storage"
-  project     = var.project
-  environment = var.environment
-  account_id  = var.account_id
+  source                 = "../../modules/storage"
+  project                = var.project
+  environment            = var.environment
+  account_id             = var.account_id
+  enable_lifecycle_rules = false
 }
 
 module "iam" {

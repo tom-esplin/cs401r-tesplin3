@@ -34,3 +34,15 @@ variable "route_cidr" {
   default     = "0.0.0.0/0"
 
 }
+
+variable "private_subnet_cidr" {
+  description = "CIDR block for the private subnet"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "enable_nat_gateway" {
+  description = "Create a NAT Gateway and route the private subnet through it; disabled in environments/local since LocalStack Community does not support NAT Gateways"
+  type        = bool
+  default     = true
+}

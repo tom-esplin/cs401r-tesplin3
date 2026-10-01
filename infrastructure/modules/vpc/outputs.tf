@@ -15,3 +15,13 @@ output "security_group_id" {
   description = "ID of the default security group"
   value       = aws_security_group.this.id
 }
+
+output "private_subnet_id" {
+  description = "ID of the private subnet"
+  value       = aws_subnet.private.id
+}
+
+output "glue_sg_id" {
+  description = "ID of the Glue workers security group (self-referencing all-ports ingress)"
+  value       = aws_security_group.glue.id
+}
