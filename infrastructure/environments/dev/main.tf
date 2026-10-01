@@ -38,3 +38,24 @@ module "sagemaker" {
   ml_engineer_role_arn    = module.iam.ml_engineer_role_arn
   sagemaker_instance_type = var.sagemaker_instance_type
 }
+
+module "feature_store" {
+  source                 = "../../modules/feature_store"
+  project                = var.project
+  environment            = var.environment
+  bucket_name            = module.storage.bucket_name
+  data_engineer_role_arn = module.iam.data_engineer_role_arn
+}
+
+module "glue" {
+  source                 = "../../modules/glue"
+  project                = var.project
+  environment            = var.environment
+  bucket_name            = module.storage.bucket_name
+  data_engineer_role_arn = module.iam.data_engineer_role_arn
+  private_subnet_id      = module.vpc.private_subnet_id
+  glue_sg_id             = module.vpc.glue_sg_id
+  availability_zone      = var.availability_zone
+  aws_region             = var.aws_region
+  feature_group_name     = module.feature_store.feature_group_name
+}

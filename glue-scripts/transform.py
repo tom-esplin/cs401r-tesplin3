@@ -63,8 +63,20 @@ def cast_types(df):
     key for every downstream feature, so a row without it cannot be
     attributed to anyone.
     """
-    # TODO: your implementation here
-    raise NotImplementedError("cast_types is not implemented")
+    for col in SCHEMA:
+        df = df.withColumn(col, F.trim(F.col(col)))
+        df = df.withColumn(col, F.when(F.col(col) == "", None).otherwise(F.col(col)))
+
+    iso_date = F.to_date(F.col("purchase_date"), "yyyy-MM-dd")
+    us_date = F.to_date(F.col("purchase_date"), "MM/dd/yyyy")
+    df = df.withColumn("purchase_date", F.coalesce(iso_date, us_date))
+
+    for col, cast_type in SCHEMA.items():
+        if col == "purchase_date":
+            continue
+        df = df.withColumn(col, F.col(col).cast(cast_type))
+
+    return df.filter(F.col("customer_id").isNotNull())
 
 
 def impute_nulls(df):
@@ -79,8 +91,15 @@ def impute_nulls(df):
 
     Numeric columns: NUMERIC_COLS.  String columns: STRING_COLS.
     """
-    # TODO: your implementation here
-    raise NotImplementedError("impute_nulls is not implemented")
+    for col in NUMERIC_COLS:
+        median = df.approxQuantile(col, [0.5], 0.0)[0]
+        if SCHEMA[col] == "int":
+            median = round(median)
+        df = df.fillna({col: median})
+
+    df = df.fillna({col: "unknown" for col in STRING_COLS})
+
+    return df
 
 
 def deduplicate(df):
@@ -101,8 +120,11 @@ def deduplicate(df):
     A window function with row_number() over a partition by transaction_id
     is the idiomatic approach.
     """
-    # TODO: your implementation here
-    raise NotImplementedError("deduplicate is not implemented")
+    window = Window.partitionBy("transaction_id").orderBy(
+        F.col("purchase_date").desc(), F.col("order_value").desc()
+    )
+    df = df.withColumn("_rn", F.row_number().over(window))
+    return df.filter(F.col("_rn") == 1).drop("_rn")
 
 
 def main():

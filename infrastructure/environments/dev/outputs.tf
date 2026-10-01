@@ -26,3 +26,23 @@ output "sagemaker_domain_id" {
   description = "ID of the SageMaker Domain"
   value       = module.sagemaker.domain_id
 }
+
+output "glue_database_name" {
+  description = "Name of the Glue catalog database"
+  value       = module.glue.catalog_database_name
+}
+
+output "transform_job_name" {
+  description = "Name of the Glue transform ETL job"
+  value       = module.glue.transform_job_name
+}
+
+output "feature_group_name" {
+  description = "Name of the SageMaker Feature Group"
+  value       = module.feature_store.feature_group_name
+}
+
+output "feature_engineer_job_name" {
+  description = "Name of the Glue feature-engineer ETL job"
+  value       = module.glue.feature_engineer_job_name
+}

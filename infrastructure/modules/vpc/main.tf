@@ -66,7 +66,9 @@ resource "aws_subnet" "private" {
   availability_zone       = var.availability_zone
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.project}-${var.environment}-private-subnet"
+    # Matches the Architecture Reference's exact subnet name; verify-lab2.sh
+    # looks resources up by this tag, not by Terraform resource address.
+    Name = "${var.project}-${var.environment}-private-1"
   }
 }
 
