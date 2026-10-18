@@ -1,0 +1,10 @@
+# Local churn training; SageMaker 2.x retains the Feature Store SDK.
+boto3>=1.43.91,<2
+numpy>=2.2,<3
+pandas>=2.2,<3
+pyarrow>=19,<25
+xgboost>=3.4,<4
+scikit-learn>=1.6,<2
+sagemaker>=2.257.7,<3
+mlflow>=3,<4
+sagemaker-mlflow>=0.5,<1

@@ -10,14 +10,28 @@
 # Usage: bash scripts/teardown-lab3.sh
 set -uo pipefail
 REGION="${AWS_DEFAULT_REGION:-us-east-1}"
+export AWS_DEFAULT_REGION="$REGION"
+VERIFY_ONLY=false
+case "${1:-}" in
+  --verify-only) VERIFY_ONLY=true ;;
+  "") ;;
+  *) echo "Usage: bash scripts/teardown-lab3.sh [--verify-only]" >&2; exit 2 ;;
+esac
 mkdir -p docs
 
-echo "==> Lab 3 teardown  (account $(aws sts get-caller-identity --query Account --output text))"
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) || exit 1
+echo "==> Lab 3 teardown (account $ACCOUNT_ID, region $REGION)"
 
+if [ "$VERIFY_ONLY" = false ]; then
 echo "[1/4] Deleting SageMaker endpoints"
 for e in $(aws sagemaker list-endpoints --query 'Endpoints[*].EndpointName' --output text 2>/dev/null | tr '\t' '\n'); do
   [ -z "$e" ] && continue
   aws sagemaker delete-endpoint --endpoint-name "$e" >/dev/null 2>&1 && echo "      deleted endpoint $e"
+done
+
+# Endpoint deletion is asynchronous; configs cannot be removed until it finishes.
+for e in $(aws sagemaker list-endpoints --query 'Endpoints[*].EndpointName' --output text); do
+  aws sagemaker wait endpoint-deleted --endpoint-name "$e" || exit 1
 done
 
 echo "[2/4] Deleting endpoint configs"
@@ -40,8 +54,15 @@ for j in $(aws sagemaker list-transform-jobs --status-equals InProgress --query 
   aws sagemaker stop-transform-job --transform-job-name "$j" >/dev/null 2>&1 && echo "      stopped transform job $j"
 done
 
+fi
+
 echo "[4/4] Verifying"
 {
+  echo "Lab 3 teardown verification"
+  echo "UTC: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "Account: $ACCOUNT_ID"
+  echo "Region: $REGION"
+  echo "Verification only: $VERIFY_ONLY"
   fail=0
   # A failed AWS call is a FAILED check, never "OK". This used to be
   # `$(eval "$2" || echo 0)`, so expired credentials or a wrong profile read
@@ -62,6 +83,10 @@ echo "[4/4] Verifying"
   check "Endpoint configs"      "aws sagemaker list-endpoint-configs --query 'length(EndpointConfigs)' --output text"
   check "Training jobs running" "aws sagemaker list-training-jobs --status-equals InProgress --query 'length(TrainingJobSummaries)' --output text"
   check "Processing jobs"       "aws sagemaker list-processing-jobs --status-equals InProgress --query 'length(ProcessingJobSummaries)' --output text"
+  check "Transform jobs"        "aws sagemaker list-transform-jobs --status-equals InProgress --query 'length(TransformJobSummaries)' --output text"
+  check "Training jobs stopping" "aws sagemaker list-training-jobs --status-equals Stopping --query 'length(TrainingJobSummaries)' --output text"
+  check "Processing jobs stopping" "aws sagemaker list-processing-jobs --status-equals Stopping --query 'length(ProcessingJobSummaries)' --output text"
+  check "Transform jobs stopping" "aws sagemaker list-transform-jobs --status-equals Stopping --query 'length(TransformJobSummaries)' --output text"
   # The MLflow TRACKING SERVER bills $0.60/hr until deleted -- $10 budget gone
   # in 16.7 hours, ~$43 over a weekend. It is not an endpoint, so nothing else
   # catches it. The serverless MLflow APP is free and deliberately NOT checked:

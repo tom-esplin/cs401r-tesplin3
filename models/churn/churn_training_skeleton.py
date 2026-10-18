@@ -24,10 +24,6 @@ Usage (local testing):
         --mlflow-arn arn:aws:sagemaker:us-east-1:<account>:mlflow-app/app-XXXX \
         --run-name xgb-depth6-eta0.1
 
-    Add --register only for the final model: it uploads model.tar.gz under
-    artifacts/models/churn/ and creates a PendingManualApproval version in the
-    northstar-churn-models Model Registry group.
-
 Usage (SageMaker training job — parameters passed via hyperparameter dict):
     Configured via the SageMaker Python SDK Estimator.
 """
@@ -36,12 +32,10 @@ import argparse
 import json
 import os
 import pickle
-import tarfile
 from datetime import datetime, timezone
 
 import boto3
 import numpy as np
-from botocore.exceptions import ClientError
 import pandas as pd
 
 # SageMaker imports — available in SageMaker training containers.
@@ -139,18 +133,6 @@ def parse_args():
     parser.add_argument("--run-name", type=str, default=None,
                         help="Name for this run. Make it descriptive -- 'run3' tells "
                              "you nothing three weeks later.")
-
-    # Model Registry (Task 1, 5 points)
-    parser.add_argument("--register", action="store_true",
-                        help="Upload the model and register it in the Model Registry as "
-                             "PendingManualApproval. Off by default so experiment runs "
-                             "do not each create a registry version -- pass it only for "
-                             "the config you are submitting.")
-    parser.add_argument("--model-package-group", type=str, default="northstar-churn-models",
-                        help="Lab 5 deploys from this group by name; do not change it")
-    parser.add_argument("--serving-xgboost-version", type=str, default="1.7-1",
-                        help="SageMaker XGBoost serving container the registered model "
-                             "points at")
 
     parser.add_argument("--model-dir", type=str,
                         default=os.environ.get("SM_MODEL_DIR", "./model"))
@@ -586,22 +568,14 @@ def evaluate_model(model: xgb.Booster,
 
     print("  All thresholds passed ✓")
 
-    # Slice evaluation runs separately in evaluate_slices(), called from main().
+    # TODO (Lab 3): Add slice evaluation
+    # Evaluate AUC and recall separately for each loyalty_tier and flag
+    # any segment where recall drops more than 10pp below aggregate recall.
 
     return metrics
 
 
 # ── Slice Evaluation ───────────────────────────────────────────────────────────
-
-# A slice with fewer churners than this cannot support a claim about AUC or
-# recall. Lab 3's warning: an earlier Platinum slice with ~2 test churners
-# swung between AUC 0.00 and 1.00 on the split alone and was published as a
-# finding, backwards. The per-slice bootstrap CI below shows the same thing
-# numerically; this threshold makes the call explicit.
-MIN_SLICE_POSITIVES = 30
-RECALL_GAP_FLAG = 0.10   # flag slices >10pp below aggregate recall@10%
-SLICE_BOOTSTRAP_N = 1000
-
 
 def evaluate_slices(model: xgb.Booster,
                     X_val: np.ndarray,
@@ -611,85 +585,20 @@ def evaluate_slices(model: xgb.Booster,
     Evaluate model performance by slice (e.g., loyalty_tier, age_band).
     Flag slices where recall@10% drops more than 10pp below aggregate.
 
-    Recall@10% uses the GLOBAL top-10% cutoff, not a per-slice one. The
-    retention campaign contacts the top 10% of all customers; the question per
-    tier is "what share of this tier's churners does that campaign reach?" A
-    per-slice cutoff would answer a different question (a campaign per tier)
-    and would make every tier look equally covered by construction.
-
-    Every slice reports n and n_positive alongside its metrics, plus a 95%
-    bootstrap CI on its AUC. A slice with < MIN_SLICE_POSITIVES churners is
-    marked too_small: report it, but do not draw a conclusion from it.
+    TODO: Implement this function in Lab 3.
     """
     dval = xgb.DMatrix(X_val, feature_names=FEATURE_COLUMNS)
     y_pred_proba = model.predict(dval)
-    slice_values = np.asarray(slice_column)
+    aggregate_recall = None  # TODO: compute
 
-    contacted = y_pred_proba >= np.percentile(y_pred_proba, 90)
-    aggregate_recall = float(contacted[y_val == 1].mean())
-
-    rng = np.random.default_rng(BOOTSTRAP_SEED)
     slice_results = {}
-    for slice_value in sorted(pd.unique(slice_values)):
-        mask = slice_values == slice_value
-        ys, ps, cs = y_val[mask], y_pred_proba[mask], contacted[mask]
-        n, n_pos = int(mask.sum()), int(ys.sum())
+    for slice_value in slice_column.unique():
+        mask = (slice_column == slice_value).values
+        # TODO: compute recall@10% for this slice
+        # Flag if recall < aggregate_recall - 0.10
+        pass
 
-        # AUC is undefined when a slice holds only one class.
-        auc_value, ci = None, (None, None)
-        if 0 < n_pos < n:
-            auc_value = float(roc_auc_score(ys, ps))
-            boots = []
-            for _ in range(SLICE_BOOTSTRAP_N):
-                s = rng.integers(0, n, n)
-                if 0 < ys[s].sum() < n:
-                    boots.append(roc_auc_score(ys[s], ps[s]))
-            if boots:
-                ci = (float(np.quantile(boots, 0.025)), float(np.quantile(boots, 0.975)))
-
-        recall = float(cs[ys == 1].mean()) if n_pos else None
-        slice_results[str(slice_value)] = {
-            "n": n,
-            "n_positive": n_pos,
-            "positive_rate": round(n_pos / n, 4) if n else None,
-            "auc": round(auc_value, 4) if auc_value is not None else None,
-            "auc_ci_low": round(ci[0], 4) if ci[0] is not None else None,
-            "auc_ci_high": round(ci[1], 4) if ci[1] is not None else None,
-            "recall_top10": round(recall, 4) if recall is not None else None,
-            "share_contacted": round(float(cs.mean()), 4),
-            "recall_gap_flag": recall is not None and recall < aggregate_recall - RECALL_GAP_FLAG,
-            "too_small": n_pos < MIN_SLICE_POSITIVES,
-        }
-
-    # Weakest tier by AUC among slices large enough to judge.
-    judged = {k: v for k, v in slice_results.items() if not v["too_small"] and v["auc"] is not None}
-    weakest = min(judged, key=lambda k: judged[k]["auc"]) if judged else None
-
-    print(f"\n── Slice Evaluation ({slice_column.name or 'slice'}) ─────────────────────")
-    print(f"  aggregate recall@10%: {aggregate_recall:.4f}")
-    print(f"  {'slice':10s} {'n':>5s} {'churn':>5s} {'AUC':>7s} {'AUC 95% CI':>17s} "
-          f"{'recall@10%':>10s} {'contacted':>9s}  notes")
-    for name, r in slice_results.items():
-        auc_s = f"{r['auc']:.4f}" if r["auc"] is not None else "   n/a"
-        ci_s = (f"[{r['auc_ci_low']:.3f}, {r['auc_ci_high']:.3f}]"
-                if r["auc_ci_low"] is not None else "n/a")
-        rec_s = f"{r['recall_top10']:.4f}" if r["recall_top10"] is not None else "n/a"
-        notes = []
-        if name == weakest:
-            notes.append("WEAKEST")
-        if r["recall_gap_flag"]:
-            notes.append(f"recall >{RECALL_GAP_FLAG:.0%} below aggregate")
-        if r["too_small"]:
-            notes.append(f"TOO SMALL (<{MIN_SLICE_POSITIVES} churners) - no conclusion")
-        print(f"  {name:10s} {r['n']:5d} {r['n_positive']:5d} {auc_s:>7s} {ci_s:>17s} "
-              f"{rec_s:>10s} {r['share_contacted']:9.1%}  {', '.join(notes)}")
-
-    return {
-        "aggregate_recall_top10": round(aggregate_recall, 4),
-        "weakest_slice": weakest,
-        "min_slice_positives": MIN_SLICE_POSITIVES,
-        "slices": slice_results,
-    }
+    return slice_results
 
 
 # ── Experiment Tracking (MLflow App) ───────────────────────────────────────────
@@ -724,10 +633,14 @@ def track_run(args, metrics: dict, scale_pos_weight: float) -> None:
       2. You need BOTH `mlflow` and `sagemaker-mlflow` installed. The second
          is the SigV4 auth plugin for arn:aws:sagemaker:... tracking URIs.
          Without it you get a connection error that never mentions credentials.
+
+    TODO: Implement this function.
     """
     if not args.mlflow_arn:
         print("\n(no --mlflow-arn given; skipping experiment tracking)")
         return
+
+    # TODO: log this run to the MLflow App.
 
     import mlflow
 
@@ -760,6 +673,8 @@ def track_run(args, metrics: dict, scale_pos_weight: float) -> None:
     # it earns 2 of 5. Vary something you can defend, and be able to say what
     # the variation did to the metrics.
 
+    print("TODO: Log run to MLflow App (see comments above)")
+
 
 # ── Model Saving & Registry ────────────────────────────────────────────────────
 
@@ -772,11 +687,8 @@ def save_and_register_model(model: xgb.Booster,
     """
     os.makedirs(args.model_dir, exist_ok=True)
 
-    # Save model. JSON, not the default UBJSON: the model is trained on XGBoost
-    # 3.x locally but served by the SageMaker 1.7 container, and JSON is the
-    # format with the best cross-version compatibility. The .json extension is
-    # what selects the format.
-    model_path = os.path.join(args.model_dir, "model.json")
+    # Save model
+    model_path = os.path.join(args.model_dir, "model.xgb")
     model.save_model(model_path)
     print(f"\n✓ Model saved to {model_path}")
 
@@ -795,72 +707,23 @@ def save_and_register_model(model: xgb.Booster,
     with open(os.path.join(args.model_dir, "model_metadata.json"), "w") as f:
         json.dump(metadata, f, indent=2)
 
-    if not args.register:
-        print("(no --register given; skipping Model Registry)")
-        return
-
-    # Package: SageMaker containers expect model.tar.gz, and the built-in
-    # XGBoost container loads the file named "xgboost-model" inside it.
-    tar_path = os.path.join(args.model_dir, "model.tar.gz")
-    with tarfile.open(tar_path, "w:gz") as tar:
-        tar.add(model_path, arcname="xgboost-model")
-
-    # Upload under artifacts/, the only prefix MLEngineer can write. The
-    # timestamped folder means a new version never overwrites an old one.
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    key = f"artifacts/models/churn/{stamp}/model.tar.gz"
-    boto3.client("s3").upload_file(tar_path, args.artifacts_bucket, key)
-    model_data_url = f"s3://{args.artifacts_bucket}/{key}"
-    print(f"✓ Uploaded {model_data_url}")
-
-    region = boto3.session.Session().region_name or "us-east-1"
-    image_uri = sagemaker.image_uris.retrieve(
-        "xgboost", region=region, version=args.serving_xgboost_version)
-
-    # The group must exist before a version can be added to it. Lab 5 deploys
-    # from it by name, so the name is fixed.
-    sm_client = boto3.client("sagemaker", region_name=region)
-    try:
-        sm_client.describe_model_package_group(ModelPackageGroupName=args.model_package_group)
-    except ClientError:  # ValidationException: group does not exist
-        sm_client.create_model_package_group(
-            ModelPackageGroupName=args.model_package_group,
-            ModelPackageGroupDescription="NorthStar churn prediction (Lab 3 Task 1)",
-        )
-        print(f"✓ Created model package group {args.model_package_group}")
-
-    # Metrics plus the provenance needed to reproduce them. Values must be
-    # strings. Status is PendingManualApproval and nothing in this script ever
-    # sets Approved: promotion is a human decision.
-    properties = {k: str(v) for k, v in metrics.items()}
-    properties.update({
-        "xgboost_version_trained": xgb.__version__,
-        "max_depth": str(args.max_depth),
-        "eta": str(args.eta),
-        "num_round": str(args.num_round),
-        "scale_pos_weight": str(getattr(args, "resolved_scale_pos_weight", args.scale_pos_weight)),
-        # Values may only contain letters, digits, spaces and _.:/=+-@ -- a
-        # comma-joined list is rejected with a ValidationException.
-        "feature_columns": " ".join(FEATURE_COLUMNS)[:256],
-        "run_name": str(args.run_name),
-    })
-
-    response = sm_client.create_model_package(
-        ModelPackageGroupName=args.model_package_group,
-        ModelPackageDescription=(
-            f"Churn XGBoost trained {datetime.now(timezone.utc).date()} on "
-            f"{xgb.__version__}; AUC {metrics['auc_roc']}, "
-            f"P@10% {metrics['precision_top10']}, R@10% {metrics['recall_top10']}"
-        ),
-        InferenceSpecification={
-            "Containers": [{"Image": image_uri, "ModelDataUrl": model_data_url}],
-            "SupportedContentTypes": ["text/csv"],
-            "SupportedResponseMIMETypes": ["text/csv"],
-        },
+    # TODO: Register in SageMaker Model Registry
+    # The model package group must be "northstar-churn-models" -- Lab 5 deploys
+    # from that group by name, so any other name breaks Lab 5.
+    # Include the evaluation metrics in the model card / description
+    # Status must be "PendingManualApproval" — never "Approved" from this script
+    #
+    sm_client = boto3.client("sagemaker")
+    sm_client.create_model_package(
+        ModelPackageGroupName="northstar-churn-models",
+        ModelPackageDescription=f"Churn model trained {datetime.utcnow().date()}",
+        InferenceSpecification={...},
         ModelApprovalStatus="PendingManualApproval",
-        CustomerMetadataProperties=properties,
+        CustomerMetadataProperties={
+            k: str(v) for k, v in metrics.items()
+        },
     )
-    print(f"✓ Registered {response['ModelPackageArn']} (PendingManualApproval)")
+    print("TODO: Register model in SageMaker Model Registry (see comments above)")
 
 
 # ── Main ───────────────────────────────────────────────────────────────────────
@@ -885,11 +748,6 @@ def main():
             args.artifacts_bucket,
         )
 
-    # 1b. Drop rows with no label BEFORE extracting X, so df, X, y and tiers
-    #     all have the same row order. preprocess_features() drops them too,
-    #     but doing it there would misalign df[SLICE_COLUMN].
-    df = df.dropna(subset=[LABEL_COLUMN]).reset_index(drop=True)
-
     # 2. Preprocess
     X, y = preprocess_features(df)
 
@@ -899,15 +757,14 @@ def main():
     # is calibrated on a test set that size; a 0.20 split leaves 2,000 rows and
     # widens the interval enough to matter.
     #
-    # The tier rides through the same split call so it is cut on the identical
-    # indices; re-deriving it afterwards from df would NOT line up. Filter it the
-    # same way preprocess_features() filters X and y (rows with a label).
-    has_label = df[LABEL_COLUMN].notna()
-    tiers = (df.loc[has_label, SLICE_COLUMN].fillna("Unknown").rename(SLICE_COLUMN)
-             if SLICE_COLUMN in df.columns
-             else pd.Series(["All"] * int(has_label.sum()), name="none"))
-    X_train, X_val, y_train, y_val, tier_train, tier_val = train_test_split(
-        X, y, tiers, test_size=0.30, random_state=42, stratify=y
+    # TODO (Task 1): to run evaluate_slices() you need the tier for each
+    # validation row. Pass df[SLICE_COLUMN] as a third array to this same call
+    # and it is split on the identical indices:
+    #   X_train, X_val, y_train, y_val, tier_train, tier_val = train_test_split(
+    #       X, y, df[SLICE_COLUMN], test_size=0.30, random_state=42, stratify=y)
+    # Re-deriving the tiers afterwards from df will NOT line up.
+    X_train, X_val, y_train, y_val = train_test_split(
+        X, y, test_size=0.30, random_state=42, stratify=y
     )
     print(f"\nTrain: {len(X_train):,} | Validation: {len(X_val):,}")
 
@@ -917,17 +774,6 @@ def main():
     # 5. Evaluate
     baseline_proba = train_recency_baseline(X_train, y_train, X_val)
     metrics = evaluate_model(model, X_val, y_val, baseline_proba)
-
-    # 5b. Slice evaluation across loyalty tiers (Task 1, 5 pts). The headline
-    #     per-tier numbers join the metrics so MLflow and the registry carry
-    #     them; the full table goes to slice_metrics.json.
-    slices = evaluate_slices(model, X_val, y_val, tier_val)
-    for name, r in slices["slices"].items():
-        for field in ("auc", "recall_top10", "n", "n_positive"):
-            if r[field] is not None:
-                metrics[f"slice_{name.lower()}_{field}"] = r[field]
-    with open(os.path.join(args.output_data_dir, "slice_metrics.json"), "w") as f:
-        json.dump(slices, f, indent=2)
 
     # 6. Save and register
     save_and_register_model(model, metrics, args)

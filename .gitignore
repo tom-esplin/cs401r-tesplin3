@@ -11,4 +11,5 @@ __pycache__/
 artifacts/rag/
 evaluation_results/
 .venv-rag/
+.venv-churn/
 Lab_2--Data & Feature Engineering (1).html

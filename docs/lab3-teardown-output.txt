@@ -1,0 +1,19 @@
+Lab 3 teardown verification
+UTC: 2026-10-18T04:20:42Z
+Account: 278634873542
+Region: us-east-1
+Verification only: false
+      SageMaker endpoints          OK
+      Endpoint configs             OK
+      Training jobs running        OK
+      Processing jobs              OK
+      Transform jobs               OK
+      Training jobs stopping       OK
+      Processing jobs stopping     OK
+      Transform jobs stopping      OK
+      MLflow TRACKING SERVERS      OK
+
+==> Lab 3 teardown complete. No billable inference or training resources remain.
+    Model Registry entries cost nothing - kept.
+    Your MLflow APP is serverless and free - kept on purpose; Labs 4 and 6 log to it.
+    Run scripts/teardown-lab2.sh as well if you are done with the data platform.

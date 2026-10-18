@@ -1,0 +1,20 @@
+NorthStar Lab 3 - Bedrock runtime access verification
+UTC: 2026-10-18T04:21:48.540921+00:00
+Region: us-east-1
+Scope: Claude generation and Titan embeddings used by Track B.
+Check definitions are recorded below; compare with the Pre-Lab handout.
+Account: 278634873542
+
+CHECK 1: Claude generation
+Model: us.anthropic.claude-haiku-4-5-20251001-v1:0
+Result: PASS
+Response: access verified
+Request ID: f60fe7c2-b971-4c5d-908c-f632b0771259
+
+CHECK 2: Titan embeddings
+Model: amazon.titan-embed-text-v2:0
+Result: PASS
+Embedding dimensions: 1024
+Request ID: 8aea28ae-43ac-4bee-8019-faa9198b30c6
+
+Overall runtime checks: PASS
