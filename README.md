@@ -1,6 +1,13 @@
 # cs401r-lab1-template
 CS 401R Lab 1: Platform Foundation — starter template (do not fork directly)
 
+## Lab 3: Offer generation (RAG)
+
+The Track B implementation uses Bedrock, a persistent local FAISS policy index,
+and the existing customer Feature Store. See
+[`docs/rag-implementation.md`](docs/rag-implementation.md) for setup, commands,
+architecture, and the exact location and contents of run records.
+
 ## Lab 2 Additions
 
 Lab 2 hardens the Lab 1 platform and adds the data pipeline on top of it. See

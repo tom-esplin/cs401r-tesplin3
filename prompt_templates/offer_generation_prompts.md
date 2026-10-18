@@ -3,6 +3,11 @@
 
 These templates are the starting point for your RAG-based offer generation system. Your task is to evaluate them, find their weaknesses, and improve them.
 
+**Implementation audit:** the tier block below has been corrected against policy.
+Gold ends at $4,999.99; Platinum starts at $5,000; free expedited shipping exists
+at no tier. The runtime prompt is `rag/prompts.py`; it receives the customer
+profile and retrieved evidence and requires a 2–3 sentence offer.
+
 **How to use this file:**
 
 1. Read each template and understand what it is trying to do.
@@ -52,7 +57,7 @@ supported by the retrieved policy context below.
 - Never invent a promotion, discount code, price, or product.
 - Never promise a benefit belonging to a tier above the customer's own.
 - If the context does not support a specific offer, say so rather than guessing.
-- Keep the offer to 3-5 sentences.
+- Keep the offer to 2–3 sentences.
 - Always include: (1) a specific incentive, (2) a category the customer already
   buys, (3) a clear call to action.
 ```
@@ -66,7 +71,9 @@ supported by the retrieved policy context below.
 
 ## Template 2: User Turn — Offer Generation Request
 
-Fill every `{placeholder}` from the customer's Feature Store record before sending.
+Fill feature values from Feature Store, compute churn probability with the trained
+model, and derive top categories from purchase history. The latter two values are
+not fields available from the online feature record.
 
 ```
 Generate a personalized retention offer for the following at-risk customer.
@@ -83,17 +90,14 @@ Generate a personalized retention offer for the following at-risk customer.
 - Top Product Categories: {top_categories}
 
 ## Task
-Write a retention offer email subject line and opening paragraph for a targeted campaign.
+Write a 2–3 sentence retention offer for a targeted campaign.
 The offer must:
 1. Reference at least one category this customer already buys
 2. Include an incentive this customer's tier is actually entitled to
-3. Create urgency without manufacturing false scarcity
+3. Give a clear call to action without inventing urgency or scarcity
 4. Be grounded in the retrieved policy context - no invented promotions
 
-Respond in this format:
-Subject: [subject line]
-Body: [one paragraph]
-Rationale: [one sentence on why this offer suits this customer]
+Respond with one paragraph of 2–3 sentences; omit a subject and internal rationale.
 ```
 
 > **Known weakness — fix this.** Every field is passed as a raw number with no interpretation.
@@ -127,15 +131,14 @@ Silver ($500 - $1,999.99):
 - Appropriate incentive: modest discount, bonus points, or early access
 - Near-threshold framing works well here - Gold begins at $2,000
 
-Gold ($2,000 - $9,999.99):
+Gold ($2,000 - $4,999.99):
 - Entitled to: 1.5x points, free standard shipping at any amount, free return
-  shipping, 24-hour early access, 2 free gear repairs per year, free expedited
-  shipping on orders over $200
+  shipping, 24-hour early access, 2 free gear repairs per year
 - NOT entitled to: the 60-day return window (that is Platinum only)
 - Appropriate incentive: bonus points, early access, or a moderate discount
 - Acknowledge Gold status explicitly
 
-Platinum ($10,000+):
+Platinum ($5,000+):
 - Entitled to: 2x points, 60-day return window, free return shipping, 48-hour
   early access, unlimited gear repair, dedicated support line, $100 annual gear credit
 - Appropriate incentive: recognition and exclusivity over discounting
@@ -149,7 +152,7 @@ Applies to every tier:
 - Mexico orders are excluded from all free shipping thresholds.
 ```
 
-> **Three deliberate errors are planted in the block above.** They are the kind a marketing
+> **Three deliberate errors in the original block have been corrected above.** They are the kind a marketing
 > team introduces when it writes copy from memory instead of from the policy: two wrong
 > numbers and one benefit that does not exist at any tier.
 >

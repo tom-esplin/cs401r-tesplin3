@@ -8,4 +8,7 @@ __pycache__/
 .DS_Store
 *.zip
 .aws/
+artifacts/rag/
+evaluation_results/
+.venv-rag/
 Lab_2--Data & Feature Engineering (1).html
