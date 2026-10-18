@@ -12,9 +12,8 @@ Track C (Customer Service Agent):
 
 Usage:
     # Track B — RAG evaluation
-    python evaluation_harness.py --track B \
-        --rag-endpoint https://... \
-        --test-cases tests/offer_test_cases.json
+    python -m rag build-index
+    python -m rag evaluate
 
     # Track C — Agent evaluation
     python evaluation_harness.py --track C \
@@ -399,7 +398,7 @@ class RAGEvaluator:
 
         for tc in test_cases:
             print(f"  Evaluating {tc.customer_id}...")
-            result = self.rag_invoke_fn(tc.customer_context, tc.question)
+            result = self.rag_invoke_fn({**tc.customer_context, "customer_id": tc.customer_id}, tc.question)
             tc.generated_answer = result["answer"]
             tc.retrieved_contexts = result["contexts"]
 
@@ -422,6 +421,8 @@ class RAGEvaluator:
         )
 
         results_df = scores.to_pandas()
+        self.last_traces = scores.traces
+        results_df.insert(0, "customer_id", [tc.customer_id for tc in test_cases])
         self._print_results(results_df)
         return results_df
 
@@ -681,37 +682,21 @@ def main():
     parser.add_argument("--region", default="us-east-1")
 
     args = parser.parse_args()
+    if args.track == "B":
+        # Delegate to the pipeline runner so every evaluation has durable case
+        # traces, configuration, scores and failed-run records.
+        import sys
+        from pathlib import Path
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from rag.__main__ import main as rag_main
+        sys.argv = [sys.argv[0], "--region", args.region,
+                    "--model-id", args.bedrock_model_id,
+                    "--run-root", args.output_dir, "evaluate"]
+        raise SystemExit(rag_main())
     os.makedirs(args.output_dir, exist_ok=True)
     timestamp = datetime.utcnow().strftime("%Y%m%dT%H%M%S")
 
-    if args.track == "B":
-        if not RAGAS_AVAILABLE:
-            print('ERROR: ragas not installed. Run: pip install ragas datasets "langchain-community<0.4" langchain-aws')
-            return
-
-        print("Track B: Offer Generation RAG Evaluation")
-        print("=" * 50)
-
-        # TODO: Wire up your actual RAG invocation function here.
-        # The function receives (customer_context: dict, question: str)
-        # and must return {"answer": str, "contexts": list[str]}
-        def placeholder_rag_fn(context, question):
-            """Replace this with your actual RAG system invocation."""
-            raise NotImplementedError(
-                "TODO: Replace this placeholder with your RAG system invocation.\n"
-                "The function should call your Bedrock + vector store pipeline\n"
-                "and return {'answer': str, 'contexts': list[str]}"
-            )
-
-        evaluator = RAGEvaluator(rag_invoke_fn=placeholder_rag_fn,
-                                 bedrock_model_id=args.bedrock_model_id,
-                                 region=args.region)
-        results = evaluator.run(OFFER_TEST_CASES)
-        output_path = os.path.join(args.output_dir, f"rag_eval_{timestamp}.csv")
-        results.to_csv(output_path, index=False)
-        print(f"Results saved to {output_path}")
-
-    elif args.track == "C":
+    if args.track == "C":
         print("Track C: Customer Service Agent Evaluation")
         print("=" * 50)
 
