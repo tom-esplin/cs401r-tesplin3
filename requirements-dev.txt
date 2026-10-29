@@ -1,0 +1,3 @@
+# Existing offline RAG tests are included in the repository-wide Task 1 run.
+faiss-cpu>=1.12,<2
+tiktoken>=0.11,<1

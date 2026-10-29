@@ -33,7 +33,6 @@ If you need to work on other tests before your pipeline has produced output,
 set ALLOW_MISSING_DATA=1 explicitly. Never make absence silent by default.
 """
 
-import glob
 import os
 from pathlib import Path
 
@@ -85,7 +84,7 @@ def _require(path_desc, found):
 
 
 def _read_parquet_dir(directory):
-    files = glob.glob(str(Path(directory) / "*.parquet"))
+    files = sorted(Path(directory).rglob("*.parquet"))
     if not files:
         return None
     return pd.concat([pd.read_parquet(f) for f in files], ignore_index=True)
@@ -211,7 +210,7 @@ class TestProcessedData:
 class TestFeatures:
 
     def test_schema(self, features_df):
-        required = FEATURE_COLUMNS + ["customer_id", "loyalty_tier", "churn_label"]
+        required = FEATURE_COLUMNS + ["customer_id", "loyalty_tier", "churn_label", "event_time"]
         missing = [c for c in required if c not in features_df.columns]
         assert not missing, f"Feature set missing columns: {missing}"
 
@@ -300,6 +299,19 @@ class TestFeatures:
     # the wall-clock time your Lab 2 feature job ran, NOT the cutoff T.
     # Consequence: re-run the northstar-dev-feature-engineer Glue job (~90 s)
     # before any session in which you will push, or this test fails the build.
+
+    def test_features_are_fresh(self, features_df):
+        from data.validation import validate_freshness
+        validate_freshness(features_df["event_time"])
+
+    def test_all_features_match_observation_history(self, processed_df, features_df):
+        from data.feature_engineering import build_churn_feature_set
+        from data.validation import validate_feature_parity
+        observation = processed_df.loc[processed_df["purchase_date"] <= FEATURE_CUTOFF]
+        roster = observation[["customer_id"]].drop_duplicates()
+        # Pass the full processed table: the reference must exclude holdout itself.
+        expected = build_churn_feature_set(roster, processed_df, FEATURE_CUTOFF)
+        validate_feature_parity(expected, features_df)
 
 
 # ── Cross-dataset consistency ─────────────────────────────────────────────────

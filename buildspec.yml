@@ -252,12 +252,11 @@ phases:
         ls -la /tmp/model
 
       # One gate, one implementation, the same one a student runs locally.
-      # tests/test_fairness.py (Task 1, you write it) runs here too, because it
-      # needs the metrics this run emitted. It flags, it does not block.
+      # Run the complete repository suite against this candidate, including
+      # fairness, trainer checks, and the existing offline RAG tests. Fairness
+      # disparity warns; missing or malformed slice evidence blocks the build.
       - |
-        FAIRNESS=""
-        if [ -f tests/test_fairness.py ]; then FAIRNESS=tests/test_fairness.py; fi
-        python -m pytest tests/test_model.py $FAIRNESS -v -rw --tb=short \
+        python -m pytest tests/ -v -rw --tb=short \
           --eval-metrics-path /tmp/eval_metrics.json \
           --model-path /tmp/model/xgboost-model \
           --junitxml=reports/model_gate.xml

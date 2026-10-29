@@ -46,7 +46,7 @@ except ImportError:
 def model_path(request):
     path = request.config.getoption("--model-path")
     if path is None:
-        path = os.environ.get("MODEL_PATH", "./model/model.xgb")
+        path = os.environ.get("MODEL_PATH", "./model/model.json")
     return path
 
 
@@ -74,9 +74,9 @@ FEATURE_COLUMNS = [
 def loaded_model(model_path):
     """Load the trained model. Skip if file doesn't exist."""
     if not XGBOOST_AVAILABLE:
-        pytest.skip("xgboost not installed")
+        pytest.fail("xgboost not installed", pytrace=False)
     if not Path(model_path).exists():
-        pytest.skip(f"Model file not found at {model_path}. Train a model first.")
+        pytest.fail(f"Model file not found at {model_path}. Train a model first.", pytrace=False)
     model = xgb.Booster()
     model.load_model(model_path)
     return model
@@ -89,7 +89,7 @@ def model_metadata(model_path):
     if meta_path.exists():
         with open(meta_path) as f:
             return json.load(f)
-    return {}
+    pytest.fail(f"Model metadata missing: {meta_path}", pytrace=False)
 
 
 @pytest.fixture
@@ -191,6 +191,7 @@ class TestPredictionOutput:
         dmatrix = xgb.DMatrix(features, feature_names=FEATURE_COLUMNS)
         predictions = loaded_model.predict(dmatrix)
 
+        assert predictions.shape == (len(features),)
         assert predictions.min() >= 0.0, f"Predictions below 0: {predictions.min():.4f}"
         assert predictions.max() <= 1.0, f"Predictions above 1: {predictions.max():.4f}"
 
@@ -374,13 +375,9 @@ class TestStoredMetricsGate:
         "recall_top10": 0.25,
     }
 
-    @pytest.fixture(scope="class")
-    def eval_metrics(self):
-        metrics_path = os.environ.get("EVAL_METRICS_PATH", "/tmp/eval_metrics.json")
-        if not Path(metrics_path).exists():
-            pytest.skip(f"Evaluation metrics not found at {metrics_path}.")
-        with open(metrics_path) as f:
-            return json.load(f)
+    @pytest.fixture
+    def eval_metrics(self, evaluation_metrics):
+        return evaluation_metrics
 
     def test_precision_top10_meets_threshold(self, eval_metrics):
         p = eval_metrics.get("precision_top10", 0)
@@ -417,10 +414,21 @@ class TestStoredMetricsGate:
     def test_positive_rate_is_realistic(self, eval_metrics):
         """The validation set churn rate should be near the measured 22%."""
         rate = eval_metrics.get("positive_rate_val", -1)
-        if rate < 0:
-            pytest.skip("positive_rate_val not in metrics")
         assert 0.15 <= rate <= 0.30, (
             f"Validation churn rate {rate:.1%} outside expected range [15%, 30%]. "
             f"The reference dataset measures 22.0%. Check that your validation "
             f"split is stratified."
         )
+
+    def test_candidate_does_not_regress_against_approved_champion(self, eval_metrics):
+        import boto3
+        from evaluation.model_gates import check_champion_regression, load_champion
+
+        region = os.environ.get("AWS_REGION", os.environ.get("AWS_DEFAULT_REGION", "us-east-1"))
+        champion = load_champion(
+            boto3.client("sagemaker", region_name=region),
+            boto3.client("s3", region_name=region),
+        )
+        if champion is None:
+            pytest.skip("Bootstrap only: no Approved champion. Approve an earlier green run, then rerun CI for final evidence.")
+        check_champion_regression(eval_metrics["auc_roc"], champion)

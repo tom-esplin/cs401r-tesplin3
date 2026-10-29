@@ -22,6 +22,12 @@ Keep option registration here.
 """
 
 import os
+import json
+from pathlib import Path
+
+import pytest
+
+from evaluation.model_gates import validate_evaluation_metrics
 
 
 def pytest_addoption(parser):
@@ -45,3 +51,14 @@ def pytest_configure(config):
     p = config.getoption("--eval-metrics-path")
     if p:
         os.environ["EVAL_METRICS_PATH"] = p
+
+
+@pytest.fixture(scope="session")
+def evaluation_metrics():
+    path = Path(os.environ.get("EVAL_METRICS_PATH", "output/evaluation_metrics.json"))
+    if not path.is_file():
+        pytest.fail(f"Evaluation metrics missing: {path}. Train the candidate first.", pytrace=False)
+    with path.open(encoding="utf-8") as stream:
+        metrics = json.load(stream)
+    validate_evaluation_metrics(metrics)
+    return metrics

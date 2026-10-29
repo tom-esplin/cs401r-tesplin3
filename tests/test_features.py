@@ -25,10 +25,11 @@ import pytest
 # Lab 2 implements feature engineering in PySpark (glue-scripts/feature_engineer.py),
 # which is awkward to unit test. For Lab 4 you extract the pure computation logic into
 # testable functions in data/feature_engineering.py that operate on pandas DataFrames,
-# then have the Glue job and these tests share that logic.
+# retain the Spark job and verify this reference against actual Glue output
+# in tests/test_data.py.
 #
 # Your pandas functions must compute EXACTLY what your Glue job computes --
-# same windows (purchase_date > T - N days), same definitions. In particular,
+# same windows (purchase_date >= T - N days), same definitions. In particular,
 # avg_basket_size_6m is ITEMS per order over 180 days (Lab 2 schema), not
 # dollars. Check the port against your Glue output on the full dataset.
 #
@@ -157,11 +158,9 @@ class TestRecencyFeatures:
         empty_txns = pd.DataFrame(columns=["customer_id", "purchase_date", "order_value"])
         customer_ids = pd.DataFrame({"customer_id": ["CUST-NODATA"]})
 
-        # TODO: Your function should handle customers with no transactions
-        # Expected behavior: return days_since_last_purchase = 999 (or configurable sentinel)
-        # features = compute_recency_features(empty_txns, SNAPSHOT_DATE, customer_ids)
-        # assert features.iloc[0]["days_since_last_purchase"] == 999
-        pass
+        features = compute_recency_features(empty_txns, SNAPSHOT_DATE, customer_ids)
+        assert features.iloc[0]["days_since_last_purchase"] == 999
+        assert features.iloc[0]["customer_tenure_days"] == 0
 
 
 # ── Frequency Feature Tests ────────────────────────────────────────────────────
@@ -285,10 +284,7 @@ class TestFullFeatureSet:
         assert not missing, f"Missing features: {missing}"
 
     def test_no_null_features_for_known_customers(self, sample_customers, sample_transactions):
-        """
-        TODO: After filling missing values, no feature should be NaN for customers
-        who have at least one transaction. Document your null-filling strategy.
-        """
+        """Active customers have complete features; missing aggregates become zero."""
         features = build_churn_feature_set(
             customers=sample_customers,
             transactions=sample_transactions,
@@ -298,7 +294,61 @@ class TestFullFeatureSet:
         active_customer_ids = sample_transactions["customer_id"].unique()
         active_features = features[features["customer_id"].isin(active_customer_ids)]
         null_counts = active_features[self.REQUIRED_FEATURES].isna().sum()
-        # TODO: Assert null_counts.sum() == 0 (implement after deciding on null strategy)
+        assert null_counts.sum() == 0, f"Null features: {null_counts.to_dict()}"
+
+    def test_zero_purchase_customer_has_explicit_defaults(self, sample_customers, sample_transactions):
+        customers = pd.DataFrame({"customer_id": ["CUST-NODATA"], "loyalty_tier": ["Bronze"]})
+        row = build_churn_feature_set(customers, sample_transactions, SNAPSHOT_DATE).iloc[0]
+        assert row["days_since_last_purchase"] == 999
+        from data.feature_engineering import FEATURE_COLUMNS
+        assert (row[[c for c in FEATURE_COLUMNS if c != "days_since_last_purchase"]] == 0).all()
+        assert row["loyalty_tier"] == "Bronze"
+
+    def test_single_transaction_has_exact_values(self, sample_customers, sample_transactions):
+        transaction = sample_transactions.iloc[[0]]
+        row = build_churn_feature_set(sample_customers.iloc[[0]], transaction, SNAPSHOT_DATE).iloc[0]
+        assert row["days_since_last_purchase"] == row["customer_tenure_days"] == 60
+        assert row["purchase_frequency_30d"] == 0
+        assert row["purchase_frequency_90d"] == row["purchase_frequency_180d"] == 1
+        assert row["avg_order_value"] == row["total_spend_90d"] == pytest.approx(89.99)
+        assert row["total_lifetime_value"] == pytest.approx(89.99)
+        assert row["avg_basket_size_6m"] == 2
+        assert row["category_diversity_score"] == 1 / 8
+        assert row["online_to_store_ratio"] == 0
+
+    def test_entirely_empty_transaction_table_keeps_roster(self, sample_customers, sample_transactions):
+        from data.feature_engineering import FEATURE_COLUMNS
+        result = build_churn_feature_set(sample_customers, sample_transactions.iloc[:0], SNAPSHOT_DATE)
+        assert list(result["customer_id"]) == list(sample_customers["customer_id"])
+        assert (result["days_since_last_purchase"] == 999).all()
+        assert not result[FEATURE_COLUMNS].isna().any().any()
+
+    @pytest.mark.parametrize("days", [30, 90, 180])
+    def test_exact_lower_window_boundary_is_included(self, sample_transactions, days):
+        transaction = sample_transactions.iloc[[0]].copy()
+        transaction["purchase_date"] = SNAPSHOT_DATE - timedelta(days=days)
+        exact = compute_frequency_features(transaction, SNAPSHOT_DATE).iloc[0]
+        assert exact[f"purchase_frequency_{days}d"] == 1
+        transaction["purchase_date"] = SNAPSHOT_DATE - timedelta(days=days + 1)
+        outside = compute_frequency_features(transaction, SNAPSHOT_DATE).iloc[0]
+        assert outside[f"purchase_frequency_{days}d"] == 0
+
+    def test_holdout_cannot_change_any_feature(self, sample_customers, sample_transactions):
+        before = build_churn_feature_set(sample_customers, sample_transactions, SNAPSHOT_DATE)
+        holdout = sample_transactions.iloc[[0]].copy()
+        holdout["purchase_date"] = SNAPSHOT_DATE + timedelta(days=1)
+        holdout["order_value"] = 99999
+        after = build_churn_feature_set(sample_customers, pd.concat([sample_transactions, holdout]), SNAPSHOT_DATE)
+        pd.testing.assert_frame_equal(before, after)
+
+    def test_unknown_category_and_empty_recent_window(self, sample_customers, sample_transactions):
+        transaction = sample_transactions.iloc[[0]].copy()
+        transaction["purchase_date"] = SNAPSHOT_DATE - timedelta(days=181)
+        transaction["product_category"] = "unknown"
+        row = build_churn_feature_set(sample_customers.iloc[[0]], transaction, SNAPSHOT_DATE).iloc[0]
+        assert row["avg_basket_size_6m"] == 0
+        assert row["total_spend_90d"] == 0
+        assert row["category_diversity_score"] == 0
 
     def test_output_has_customer_id_column(self, sample_customers, sample_transactions):
         features = build_churn_feature_set(
@@ -307,3 +357,35 @@ class TestFullFeatureSet:
             snapshot_date=SNAPSHOT_DATE,
         )
         assert "customer_id" in features.columns, "Output must include customer_id for joining"
+
+
+@pytest.mark.parametrize("age_hours", [48, 49, -1])
+def test_freshness_rejects_stale_or_future_events(age_hours):
+    from data.validation import validate_freshness
+    now = pd.Timestamp("2026-10-29T12:00:00Z")
+    timestamp = (now - timedelta(hours=age_hours)).timestamp()
+    with pytest.raises(ValueError, match="48 hours"):
+        validate_freshness(pd.Series([timestamp]), now=now)
+
+
+def test_freshness_uses_latest_ingestion_not_feature_cutoff():
+    from data.validation import validate_freshness
+    now = pd.Timestamp("2026-10-29T12:00:00Z")
+    validate_freshness(pd.Series([1, now.timestamp() - 3600]), now=now)
+    for invalid in (float("nan"), float("inf")):
+        with pytest.raises(ValueError, match="finite epoch"):
+            validate_freshness(pd.Series([invalid]), now=now)
+
+
+def test_parity_rejects_boundary_and_customer_population_errors(sample_customers, sample_transactions):
+    from data.validation import validate_feature_parity
+    expected = build_churn_feature_set(sample_customers, sample_transactions, SNAPSHOT_DATE)
+    validate_feature_parity(expected, expected.copy())
+    wrong_window = expected.copy()
+    wrong_window.loc[0, "purchase_frequency_90d"] += 1
+    with pytest.raises(ValueError, match="purchase_frequency_90d"):
+        validate_feature_parity(expected, wrong_window)
+    with pytest.raises(ValueError, match="customer sets"):
+        validate_feature_parity(expected, expected.iloc[1:])
+    with pytest.raises(ValueError, match="duplicate"):
+        validate_feature_parity(expected, pd.concat([expected, expected.iloc[[0]]]))

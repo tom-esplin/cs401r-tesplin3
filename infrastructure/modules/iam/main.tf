@@ -38,9 +38,18 @@ resource "aws_iam_policy" "ml_engineer" {
           "sagemaker:CreateEndpointConfig", "sagemaker:DeleteEndpointConfig",
           "sagemaker:CreateMlflowApp", "sagemaker:DescribeMlflowApp", "sagemaker:ListMlflowApps",
           "sagemaker:CreatePresignedMlflowAppUrl",
-          "sagemaker:RegisterModel", "sagemaker:DescribeModelPackage", "sagemaker:ListModelPackages"
+          "sagemaker:RegisterModel", "sagemaker:CreateModelPackage",
+          "sagemaker:DescribeModelPackage", "sagemaker:ListModelPackages",
+          "sagemaker:AddTags", "sagemaker:ListTags"
         ]
         Resource = "*"
+      },
+      {
+        Sid       = "PassSelfToSageMaker"
+        Effect    = "Allow"
+        Action    = ["iam:PassRole"]
+        Resource  = aws_iam_role.ml_engineer.arn
+        Condition = { StringEquals = { "iam:PassedToService" = "sagemaker.amazonaws.com" } }
       },
       {
         Sid    = "StudioSelfService"
@@ -157,6 +166,12 @@ resource "aws_iam_policy" "data_engineer" {
           "arn:aws:s3:::${var.project}-${var.environment}-data-*/processed/*",
           "arn:aws:s3:::${var.project}-${var.environment}-data-*/features/*"
         ]
+      },
+      {
+        Sid      = "S3FeatureFolderMarker"
+        Effect   = "Allow"
+        Action   = ["s3:PutObject"]
+        Resource = "arn:aws:s3:::${var.project}-${var.environment}-data-*/features_$folder$"
       },
       {
         Sid      = "S3OfflineStoreAcl"
