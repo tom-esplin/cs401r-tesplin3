@@ -46,7 +46,9 @@ if data is stale. Never change `event_time` locally to bypass freshness.
 1. Apply the reviewed IAM changes and obtain a successful fresh feature-job run.
    The DataEngineer policy allows only the exact `features_$folder$` marker in
    addition to its existing feature prefix; MLEngineer can tag jobs, create
-   model packages, and pass itself to SageMaker.
+   model packages, describe/create the named model package group, and pass
+   itself to SageMaker. The SDK registration step checks the group even when
+   the group already exists.
 2. Verify the existing CI stack, versioned artifacts bucket, and Available
    GitHub connection. Push the tested implementation to `main` to trigger CI.
    Data and feature tests run before training. After training, `pytest tests/`
@@ -54,6 +56,9 @@ if data is stale. Never change `event_time` locally to bypass freshness.
 3. The first green run may skip regression if there is no Approved champion.
    Have the user approve that green run's package, then trigger the next run.
    The final regression test must pass without skipping.
+   Use a new commit for the final run: the starter stores evaluation metrics
+   under a commit-based S3 key, so rerunning the same commit would overwrite
+   the champion's metrics before the regression check reads them.
 4. The champion is the newest **Approved** package in `northstar-churn-models`.
    Its registered ModelQuality Statistics S3 object supplies `auc_roc`.
    Candidate AUC must be at least champion AUC minus 0.02. The warning records
@@ -78,3 +83,25 @@ Approved champion before writing the exact required evidence files:
 
 Commit these actual outputs before the final submission tag. Task 2's deliberate
 failure/revert demonstration, other lab tasks, teardown, and tagging are separate.
+
+## Verification record — October 29, 2026
+
+- IAM repair applied: two policies updated in place; no resources created or
+  destroyed. The exact S3 folder-marker permission resolved the observed Glue
+  `AccessDenied` error.
+- Glue feature refresh `jr_deff87f08a39b9b562d71e1e817ba8d2ef07b1edf533bac4ef0e50143a9c3eb7`
+  succeeded. All 11 reference features matched its actual output.
+- Local full suite: **115 passed, 1 bootstrap skip**, 32 subtests passed. The
+  only warning was the measured fairness gap, 0.3444.
+- Newly trained local candidate: AUC 0.7838, precision 0.7333, recall 0.3333,
+  baseline AUC 0.7223, lift interval [0.0428, 0.0799], 3,000 validation rows.
+- CI stack `northstar-cicd` is `CREATE_COMPLETE`; its separate artifacts bucket
+  is versioned and the GitHub connection is Available.
+- Commit `e2eebd14b786cbb90d6d7a87d7a571fc87994b35` was pushed to `main`.
+  No automatic pipeline execution appeared despite `DetectChanges=true`.
+  Pipeline execution `8b2110fc-efb0-4096-8927-3c637785c0c0` was explicitly started
+  for Task 1 validation. Automatic push-trigger verification remains a Task 2
+  follow-up; a manually started run is not evidence of an automatic trigger.
+- That first CI run passed data/feature tests and the SageMaker training step,
+  then exposed missing model-package-group permissions in MLEngineer during
+  registration. The group permissions are scoped to `northstar-churn-models`.

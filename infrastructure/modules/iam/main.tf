@@ -45,6 +45,15 @@ resource "aws_iam_policy" "ml_engineer" {
         Resource = "*"
       },
       {
+        Sid    = "SageMakerModelPackageGroup"
+        Effect = "Allow"
+        Action = [
+          "sagemaker:DescribeModelPackageGroup",
+          "sagemaker:CreateModelPackageGroup"
+        ]
+        Resource = "arn:aws:sagemaker:*:*:model-package-group/${var.project}-churn-models"
+      },
+      {
         Sid       = "PassSelfToSageMaker"
         Effect    = "Allow"
         Action    = ["iam:PassRole"]
