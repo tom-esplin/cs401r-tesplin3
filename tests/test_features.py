@@ -389,3 +389,8 @@ def test_parity_rejects_boundary_and_customer_population_errors(sample_customers
         validate_feature_parity(expected, expected.iloc[1:])
     with pytest.raises(ValueError, match="duplicate"):
         validate_feature_parity(expected, pd.concat([expected, expected.iloc[[0]]]))
+
+
+def test_task2_deliberate_ci_failure():
+    """Temporary failure for the recorded Task 2 halt-and-notify demonstration."""
+    assert False, "Deliberate Lab4 Task2 failure"
