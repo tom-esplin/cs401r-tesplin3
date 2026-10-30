@@ -118,3 +118,18 @@ failure/revert demonstration, other lab tasks, teardown, and tagging are separat
   champion and passed: `champion v2 auc=0.7819; candidate auc=0.7838` for the
   local candidate. The next CI run uses this new documentation commit, keeping
   its candidate metrics separate from the champion's S3 key.
+
+## Final CI evidence — October 30, 2026
+
+CodeBuild `northstar-ci:191260e3-e60b-42d2-96e8-9099bbd4b28f` succeeded on
+commit `243149cde7a5ce1b9135d565e922f83782b140ed`: **116 passed, no skips**, plus
+32 passing subtests. The live regression warning records
+`champion v2 auc=0.7819; candidate auc=0.7819`. The new candidate is package v3;
+v2 remains Approved and v3 is PendingManualApproval. The fairness warning is
+visible with a tier recall gap of 0.3058 and does not block the build.
+
+The capture helper verified the passing counts, actual champion comparison,
+training/registration success, and Approved champion before saving
+`docs/lab4-build-green.log` and `docs/lab4-model-registry.json`. This run was
+explicitly started after the push trigger again failed to start an execution;
+the Task 2 automatic-trigger follow-up remains open.
