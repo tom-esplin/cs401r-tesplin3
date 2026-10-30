@@ -323,11 +323,9 @@ Resources:
     Properties:
       AlarmName: !Sub "${ProjectName}-ci-build-failure"
       AlarmDescription: >-
-        A NorthStar CI build failed. Either a test failed, or the model quality
-        gate rejected the candidate -- it did not beat the recency-only
-        baseline with a confidence interval excluding zero. Nothing was
-        registered. Check the NorthStar/CI BuildSucceeded metric to tell the
-        two apart: absent means it failed before the gate ran.
+        A NorthStar CI build failed. Inspect its CodeBuild phases and logs.
+        Pre-training test failures prevent training and registration. If a
+        later gate fails after registration, post_build rejects that candidate.
       Namespace: AWS/CodeBuild
       MetricName: FailedBuilds
       Dimensions:
@@ -351,10 +349,21 @@ Resources:
     Type: AWS::CodePipeline::Pipeline
     Properties:
       Name: !Sub "${ProjectName}-pipeline"
+      PipelineType: V2
+      ExecutionMode: SUPERSEDED
       RoleArn: !GetAtt CodePipelineRole.Arn
       ArtifactStore:
         Type: S3
         Location: !Ref ArtifactsBucket
+
+      Triggers:
+        - ProviderType: CodeStarSourceConnection
+          GitConfiguration:
+            SourceActionName: GitHubSource
+            Push:
+              - Branches:
+                  Includes:
+                    - !Ref GitHubBranch
 
       Stages:
 
@@ -372,7 +381,8 @@ Resources:
                 FullRepositoryId: !Sub "${GitHubOwner}/${GitHubRepo}"
                 BranchName: !Ref GitHubBranch
                 OutputArtifactFormat: CODE_ZIP
-                DetectChanges: true
+                # Explicit V2 push filtering replaces default change detection.
+                DetectChanges: false
               OutputArtifacts:
                 - Name: SourceArtifact
 
@@ -394,8 +404,8 @@ Resources:
               RunOrder: 1
 
         # Stage 3: Manual Approval — required before model goes to production
-        # A human must review the model metrics and approve before SageMaker
-        # changes the model's approval status to "Approved"
+        # A human separately changes the package's Model Registry approval
+        # status and approves/rejects this action. No endpoint is deployed here.
         - Name: ManualApproval
           Actions:
             - Name: ReviewModelMetrics
