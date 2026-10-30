@@ -132,4 +132,6 @@ The capture helper verified the passing counts, actual champion comparison,
 training/registration success, and Approved champion before saving
 `docs/lab4-build-green.log` and `docs/lab4-model-registry.json`. This run was
 explicitly started after the push trigger again failed to start an execution;
-the Task 2 automatic-trigger follow-up remains open.
+the automatic-trigger follow-up was left for Task 2. That follow-up was resolved
+with the installed GitHub App connection and a verified WebhookV2 execution;
+see `docs/lab4-task2.md` for the subsequent demonstration and evidence.

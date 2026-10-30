@@ -1,56 +1,46 @@
-[Container] 2026/10/30 12:45:54.214568 Running on CodeBuild On-demand
-[Container] 2026/10/30 12:45:54.214580 Waiting for agent ping
-[Container] 2026/10/30 12:45:54.443795 Waiting for DOWNLOAD_SOURCE
-[Container] 2026/10/30 12:45:55.992221 Phase is DOWNLOAD_SOURCE
-[Container] 2026/10/30 12:45:55.993203 CODEBUILD_SRC_DIR=/codebuild/output/src2293869689/src
-[Container] 2026/10/30 12:45:55.993571 YAML location is /codebuild/output/src2293869689/src/buildspec.yml
-[Container] 2026/10/30 12:45:55.995185 Setting HTTP client timeout to higher timeout for S3 source
-[Container] 2026/10/30 12:45:55.995267 Processing environment variables
-[Container] 2026/10/30 12:45:56.029009 Expanded report group name northstar-test-reports
-[Container] 2026/10/30 12:45:56.029029 Found report group name northstar-test-reports
-[Container] 2026/10/30 12:45:56.029037 Adding prefix northstar-ci for report group name northstar-test-reports
-[Container] 2026/10/30 12:45:56.221364 Selecting 'python' runtime version '3.11' based on manual selections...
-[Container] 2026/10/30 12:45:56.221421 Running command echo "Installing Python version 3.11 ..."
+[Container] 2026/10/30 20:25:44.823641 Running on CodeBuild On-demand
+[Container] 2026/10/30 20:25:44.823650 Waiting for agent ping
+[Container] 2026/10/30 20:25:45.061025 Waiting for DOWNLOAD_SOURCE
+[Container] 2026/10/30 20:25:46.571246 Phase is DOWNLOAD_SOURCE
+[Container] 2026/10/30 20:25:46.572306 CODEBUILD_SRC_DIR=/codebuild/output/src2519504925/src
+[Container] 2026/10/30 20:25:46.572732 YAML location is /codebuild/output/src2519504925/src/buildspec.yml
+[Container] 2026/10/30 20:25:46.574310 Setting HTTP client timeout to higher timeout for S3 source
+[Container] 2026/10/30 20:25:46.574376 Processing environment variables
+[Container] 2026/10/30 20:25:46.612527 Expanded report group name northstar-test-reports
+[Container] 2026/10/30 20:25:46.612547 Found report group name northstar-test-reports
+[Container] 2026/10/30 20:25:46.612555 Adding prefix northstar-ci for report group name northstar-test-reports
+[Container] 2026/10/30 20:25:46.767969 Selecting 'python' runtime version '3.11' based on manual selections...
+[Container] 2026/10/30 20:25:46.768046 Running command echo "Installing Python version 3.11 ..."
 Installing Python version 3.11 ...
 
-[Container] 2026/10/30 12:45:56.225537 Running command pyenv global $PYTHON_311_VERSION
+[Container] 2026/10/30 20:25:46.772031 Running command pyenv global $PYTHON_311_VERSION
 
-[Container] 2026/10/30 12:45:56.943888 Moving to directory /codebuild/output/src2293869689/src
-[Container] 2026/10/30 12:45:56.945059 Expanded cache path /root/.cache/pip/**/*
-[Container] 2026/10/30 12:45:56.973856 Registering with agent
-[Container] 2026/10/30 12:45:56.973868 Phases found in YAML: 4
-[Container] 2026/10/30 12:45:56.973874  INSTALL: 10 commands
-[Container] 2026/10/30 12:45:56.973879  PRE_BUILD: 15 commands
-[Container] 2026/10/30 12:45:56.973881  BUILD: 15 commands
-[Container] 2026/10/30 12:45:56.973883  POST_BUILD: 7 commands
-[Container] 2026/10/30 12:45:56.974069 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
-[Container] 2026/10/30 12:45:56.974079 Phase context status code:  Message: 
-[Container] 2026/10/30 12:45:57.066243 Entering phase INSTALL
-[Container] 2026/10/30 12:45:57.098190 Running command echo "=== INSTALL PHASE ==="
+[Container] 2026/10/30 20:25:47.543141 Moving to directory /codebuild/output/src2519504925/src
+[Container] 2026/10/30 20:25:47.544286 Expanded cache path /root/.cache/pip/**/*
+[Container] 2026/10/30 20:25:47.580871 Registering with agent
+[Container] 2026/10/30 20:25:47.580886 Phases found in YAML: 4
+[Container] 2026/10/30 20:25:47.580897  BUILD: 15 commands
+[Container] 2026/10/30 20:25:47.580901  POST_BUILD: 7 commands
+[Container] 2026/10/30 20:25:47.580904  INSTALL: 10 commands
+[Container] 2026/10/30 20:25:47.580907  PRE_BUILD: 15 commands
+[Container] 2026/10/30 20:25:47.581068 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2026/10/30 20:25:47.581074 Phase context status code:  Message: 
+[Container] 2026/10/30 20:25:47.682826 Entering phase INSTALL
+[Container] 2026/10/30 20:25:47.716397 Running command echo "=== INSTALL PHASE ==="
 === INSTALL PHASE ===
 
-[Container] 2026/10/30 12:45:57.102032 Running command echo "Build started at $(date)"
-Build started at Fri Oct 30 12:45:57 UTC 2026
+[Container] 2026/10/30 20:25:47.720297 Running command echo "Build started at $(date)"
+Build started at Fri Oct 30 20:25:47 UTC 2026
 
-[Container] 2026/10/30 12:45:57.105997 Running command echo "Commit SHA $CODEBUILD_RESOLVED_SOURCE_VERSION"
-Commit SHA 243149cde7a5ce1b9135d565e922f83782b140ed
+[Container] 2026/10/30 20:25:47.724026 Running command echo "Commit SHA $CODEBUILD_RESOLVED_SOURCE_VERSION"
+Commit SHA a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f
 
-[Container] 2026/10/30 12:45:57.109419 Running command pip install --upgrade pip
-Requirement already satisfied: pip in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (26.0.1)
-Collecting pip
-  Downloading pip-26.2.2-py3-none-any.whl.metadata (4.6 kB)
-Downloading pip-26.2.2-py3-none-any.whl (1.8 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 38.4 MB/s  0:00:00
-Installing collected packages: pip
-  Attempting uninstall: pip
-    Found existing installation: pip 26.0.1
-    Uninstalling pip-26.0.1:
-      Successfully uninstalled pip-26.0.1
-Successfully installed pip-26.2.2
+[Container] 2026/10/30 20:25:47.727245 Running command pip install --upgrade pip
+Requirement already satisfied: pip in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (26.2.2)
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
-[Container] 2026/10/30 12:46:18.789340 Running command pip install -r requirements.txt
-Requirement already satisfied: boto3>=1.34.0 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from -r requirements.txt (line 8)) (1.43.114)
+[Container] 2026/10/30 20:26:04.188817 Running command pip install -r requirements.txt
+Requirement already satisfied: boto3>=1.34.0 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from -r requirements.txt (line 8)) (1.43.120)
 Collecting pandas>=2.0.0 (from -r requirements.txt (line 9))
   Downloading pandas-3.1.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (18 kB)
 Collecting pyarrow>=14.0.0 (from -r requirements.txt (line 10))
@@ -87,7 +77,7 @@ Collecting packaging<25,>=23.0 (from sagemaker<3.0.0,>=2.200.0->-r requirements.
   Downloading packaging-24.2-py3-none-any.whl.metadata (3.2 kB)
 Collecting pathos (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading pathos-0.3.5-py3-none-any.whl.metadata (11 kB)
-Requirement already satisfied: platformdirs in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16)) (4.13.1)
+Requirement already satisfied: platformdirs in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16)) (4.13.7)
 Collecting protobuf<7.0,>=3.12 (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading protobuf-6.33.6-cp39-abi3-manylinux2014_x86_64.whl.metadata (593 bytes)
 Collecting psutil (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
@@ -110,10 +100,10 @@ Collecting tqdm (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
 Requirement already satisfied: urllib3<3.0.0,>=1.26.8 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16)) (2.8.0)
 Collecting uvicorn (from sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
-Requirement already satisfied: botocore<1.44.0,>=1.43.114 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from boto3>=1.34.0->-r requirements.txt (line 8)) (1.43.114)
+Requirement already satisfied: botocore<1.44.0,>=1.43.120 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from boto3>=1.34.0->-r requirements.txt (line 8)) (1.43.120)
 Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from boto3>=1.34.0->-r requirements.txt (line 8)) (1.1.0)
-Requirement already satisfied: s3transfer<0.20.0,>=0.19.0 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from boto3>=1.34.0->-r requirements.txt (line 8)) (0.19.2)
-Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from botocore<1.44.0,>=1.43.114->boto3>=1.34.0->-r requirements.txt (line 8)) (2.9.0.post0)
+Requirement already satisfied: s3transfer<0.20.0,>=0.19.0 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from boto3>=1.34.0->-r requirements.txt (line 8)) (0.19.3)
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from botocore<1.44.0,>=1.43.120->boto3>=1.34.0->-r requirements.txt (line 8)) (2.9.0.post0)
 Collecting graphql-core<3.3,>=3.1 (from graphene<4,>=3->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading graphql_core-3.2.13-py3-none-any.whl.metadata (11 kB)
 Collecting graphql-relay<3.3,>=3.1 (from graphene<4,>=3->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
@@ -122,7 +112,7 @@ Collecting typing-extensions<5,>=4.7.1 (from graphene<4,>=3->sagemaker<3.0.0,>=2
   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
 Collecting zipp>=0.5 (from importlib-metadata<7.0,>=1.4.0->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading zipp-4.1.2-py3-none-any.whl.metadata (3.6 kB)
-Requirement already satisfied: six>=1.5 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from python-dateutil<3.0.0,>=2.1->botocore<1.44.0,>=1.43.114->boto3>=1.34.0->-r requirements.txt (line 8)) (1.17.0)
+Requirement already satisfied: six>=1.5 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from python-dateutil<3.0.0,>=2.1->botocore<1.44.0,>=1.43.120->boto3>=1.34.0->-r requirements.txt (line 8)) (1.17.0)
 Collecting pydantic<3.0.0,>=2.0.0 (from sagemaker-core<2.0.0,>=1.0.71->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading pydantic-2.14.2-py3-none-any.whl.metadata (137 kB)
 Collecting rich<15.0.0,>=13.0.0 (from sagemaker-core<2.0.0,>=1.0.71->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
@@ -165,7 +155,7 @@ Collecting charset_normalizer<4,>=2 (from requests->sagemaker<3.0.0,>=2.200.0->-
   Downloading charset_normalizer-3.5.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
 Collecting idna<4,>=2.5 (from requests->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
-Requirement already satisfied: certifi>=2023.5.7 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16)) (2026.7.22)
+Requirement already satisfied: certifi>=2023.5.7 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16)) (2026.10.23)
 Collecting starlette>=0.46.0 (from fastapi->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
 Collecting annotated-doc>=0.0.2 (from fastapi->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
@@ -187,10 +177,10 @@ Collecting click>=7.0 (from uvicorn->sagemaker<3.0.0,>=2.200.0->-r requirements.
 Collecting h11>=0.8 (from uvicorn->sagemaker<3.0.0,>=2.200.0->-r requirements.txt (line 16))
   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
 Downloading sagemaker-2.257.7-py3-none-any.whl (1.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 147.5 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 43.4 MB/s  0:00:00
 Downloading smdebug_rulesconfig-1.0.1-py2.py3-none-any.whl (20 kB)
 Downloading numpy-2.4.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 210.1 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.9/16.9 MB 140.9 MB/s  0:00:00
 Downloading attrs-25.4.0-py3-none-any.whl (67 kB)
 Downloading graphene-3.4.3-py2.py3-none-any.whl (114 kB)
 Downloading graphql_core-3.2.13-py3-none-any.whl (268 kB)
@@ -204,20 +194,20 @@ Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
 Downloading mock-4.0.3-py3-none-any.whl (28 kB)
 Downloading pydantic-2.14.2-py3-none-any.whl (490 kB)
 Downloading pydantic_core-2.50.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 215.0 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 173.8 MB/s  0:00:00
 Downloading rich-14.3.4-py3-none-any.whl (310 kB)
 Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 104.6 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 155.6 MB/s  0:00:00
 Downloading tblib-3.2.2-py3-none-any.whl (12 kB)
 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
 Downloading pandas-3.1.0-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.3/12.3 MB 304.9 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.3/12.3 MB 146.4 MB/s  0:00:00
 Downloading pyarrow-26.0.0-cp311-cp311-manylinux_2_28_x86_64.whl (53.9 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.9/53.9 MB 180.3 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 53.9/53.9 MB 137.0 MB/s  0:00:00
 Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 196.5 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 155.6 MB/s  0:00:00
 Downloading xgboost-3.2.0-py3-none-manylinux_2_28_x86_64.whl (131.7 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.7/131.7 MB 272.9 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.7/131.7 MB 148.0 MB/s  0:00:00
 Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
 Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
@@ -231,7 +221,7 @@ Downloading narwhals-2.28.0-py3-none-any.whl (490 kB)
 Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
 Downloading rpds_py-2026.9.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (375 kB)
 Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 307.5 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 141.8 MB/s  0:00:00
 Downloading threadpoolctl-3.7.0-py3-none-any.whl (26 kB)
 Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
 Downloading zipp-4.1.2-py3-none-any.whl (10 kB)
@@ -246,7 +236,7 @@ Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
 Downloading anyio-4.15.1-py3-none-any.whl (132 kB)
 Downloading google_pasta-0.2.0-py3-none-any.whl (57 kB)
 Downloading nvidia_nccl_cu12-2.32.3-py3-none-manylinux_2_27_x86_64.whl (351.5 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 351.5/351.5 MB 82.6 MB/s  0:00:03
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 351.5/351.5 MB 86.3 MB/s  0:00:03
 Downloading pathos-0.3.5-py3-none-any.whl (82 kB)
 Downloading dill-0.4.1-py3-none-any.whl (120 kB)
 Downloading multiprocess-0.70.19-py311-none-any.whl (144 kB)
@@ -266,11 +256,11 @@ Installing collected packages: schema, pytz, zipp, typing-extensions, tqdm, thre
       Successfully uninstalled packaging-26.3
 
 ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-virtualenv 21.14.7 requires packaging>=26.3, but you have packaging 24.2 which is incompatible.
+virtualenv 21.15.1 requires packaging>=26.3, but you have packaging 24.2 which is incompatible.
 Successfully installed annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 attrs-25.4.0 charset_normalizer-3.5.2 click-8.5.0 cloudpickle-3.1.2 dill-0.4.1 docker-7.2.0 fastapi-0.162.0 google-pasta-0.2.0 graphene-3.4.3 graphql-core-3.2.13 graphql-relay-3.2.0 h11-0.16.0 idna-3.20 importlib-metadata-6.11.0 iniconfig-2.3.1 joblib-1.6.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 markdown-it-py-4.2.0 mdurl-0.1.2 mock-4.0.3 multiprocess-0.70.19 narwhals-2.28.0 numpy-2.4.6 nvidia-nccl-cu12-2.32.3 omegaconf-2.4.0 opentelemetry-api-1.45.2 packaging-24.2 pandas-3.1.0 pathos-0.3.5 pluggy-1.7.0 pox-0.3.7 ppft-1.7.8 protobuf-6.33.6 psutil-7.2.2 pyarrow-26.0.0 pydantic-2.14.2 pydantic-core-2.50.2 pygments-2.21.0 pytest-9.2.0 pytz-2026.6 referencing-0.37.0 requests-2.34.2 rich-14.3.4 rpds-py-2026.9.1 sagemaker-2.257.7 sagemaker-core-1.0.78 schema-0.7.8 scikit-learn-1.9.1 scipy-1.17.1 smdebug-rulesconfig-1.0.1 starlette-1.10.0 tblib-3.2.2 threadpoolctl-3.7.0 tqdm-4.70.1 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.54.0 xgboost-3.2.0 zipp-4.1.2
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
-[Container] 2026/10/30 12:46:50.354223 Running command if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+[Container] 2026/10/30 20:26:38.778297 Running command if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
 Collecting faiss-cpu<2,>=1.12 (from -r requirements-dev.txt (line 2))
   Downloading faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (7.8 kB)
 Collecting tiktoken<1,>=0.11 (from -r requirements-dev.txt (line 3))
@@ -283,73 +273,73 @@ Requirement already satisfied: requests in /root/.pyenv/versions/3.11.17/lib/pyt
 Requirement already satisfied: charset_normalizer<4,>=2 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->tiktoken<1,>=0.11->-r requirements-dev.txt (line 3)) (3.5.2)
 Requirement already satisfied: idna<4,>=2.5 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->tiktoken<1,>=0.11->-r requirements-dev.txt (line 3)) (3.20)
 Requirement already satisfied: urllib3<3,>=1.26 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->tiktoken<1,>=0.11->-r requirements-dev.txt (line 3)) (2.8.0)
-Requirement already satisfied: certifi>=2023.5.7 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->tiktoken<1,>=0.11->-r requirements-dev.txt (line 3)) (2026.7.22)
+Requirement already satisfied: certifi>=2023.5.7 in /root/.pyenv/versions/3.11.17/lib/python3.11/site-packages (from requests->tiktoken<1,>=0.11->-r requirements-dev.txt (line 3)) (2026.10.23)
 Downloading faiss_cpu-1.15.1-cp310-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (18.8 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.8/18.8 MB 176.2 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.8/18.8 MB 101.2 MB/s  0:00:00
 Downloading tiktoken-0.14.0-cp311-cp311-manylinux_2_28_x86_64.whl (1.2 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 90.1 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 116.5 MB/s  0:00:00
 Downloading regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (804 kB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 805.0/805.0 kB 61.0 MB/s  0:00:00
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 805.0/805.0 kB 76.3 MB/s  0:00:00
 Installing collected packages: regex, faiss-cpu, tiktoken
 
 Successfully installed faiss-cpu-1.15.1 regex-2026.9.29 tiktoken-0.14.0
 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
 
-[Container] 2026/10/30 12:46:52.083228 Running command aws sts get-caller-identity
+[Container] 2026/10/30 20:26:40.780176 Running command aws sts get-caller-identity
 {
-    "UserId": "AROAUBX7OYLDLKTU3XMVK:AWSCodeBuild-191260e3-e60b-42d2-96e8-9099bbd4b28f",
+    "UserId": "AROAUBX7OYLDLKTU3XMVK:AWSCodeBuild-83c2b00c-f9a2-4483-8805-6ccdfb6c8d72",
     "Account": "278634873542",
-    "Arn": "arn:aws:sts::278634873542:assumed-role/northstar-codebuild-role/AWSCodeBuild-191260e3-e60b-42d2-96e8-9099bbd4b28f"
+    "Arn": "arn:aws:sts::278634873542:assumed-role/northstar-codebuild-role/AWSCodeBuild-83c2b00c-f9a2-4483-8805-6ccdfb6c8d72"
 }
 
-[Container] 2026/10/30 12:47:01.540295 Running command export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+[Container] 2026/10/30 20:26:50.763974 Running command export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
-[Container] 2026/10/30 12:47:02.101683 Running command export DATA_BUCKET="${PROJECT}-${ENVIRONMENT}-data-${ACCOUNT_ID}"
+[Container] 2026/10/30 20:26:51.307068 Running command export DATA_BUCKET="${PROJECT}-${ENVIRONMENT}-data-${ACCOUNT_ID}"
 
-[Container] 2026/10/30 12:47:02.107497 Running command echo "Data bucket ${DATA_BUCKET}"
+[Container] 2026/10/30 20:26:51.312363 Running command echo "Data bucket ${DATA_BUCKET}"
 Data bucket northstar-dev-data-278634873542
 
-[Container] 2026/10/30 12:47:02.151301 Phase complete: INSTALL State: SUCCEEDED
-[Container] 2026/10/30 12:47:02.151316 Phase context status code:  Message: 
-[Container] 2026/10/30 12:47:02.189296 Entering phase PRE_BUILD
-[Container] 2026/10/30 12:47:02.189963 Running command echo "PRE-BUILD PHASE - Tests"
+[Container] 2026/10/30 20:26:51.349416 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2026/10/30 20:26:51.349433 Phase context status code:  Message: 
+[Container] 2026/10/30 20:26:51.386946 Entering phase PRE_BUILD
+[Container] 2026/10/30 20:26:51.387717 Running command echo "PRE-BUILD PHASE - Tests"
 PRE-BUILD PHASE - Tests
 
-[Container] 2026/10/30 12:47:02.194930 Running command export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+[Container] 2026/10/30 20:26:51.393338 Running command export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
-[Container] 2026/10/30 12:47:02.744972 Running command export DATA_BUCKET="${PROJECT}-${ENVIRONMENT}-data-${ACCOUNT_ID}"
+[Container] 2026/10/30 20:26:51.938445 Running command export DATA_BUCKET="${PROJECT}-${ENVIRONMENT}-data-${ACCOUNT_ID}"
 
-[Container] 2026/10/30 12:47:02.750512 Running command mkdir -p data/processed data/features
+[Container] 2026/10/30 20:26:51.943906 Running command mkdir -p data/processed data/features
 
-[Container] 2026/10/30 12:47:02.756187 Running command aws s3 cp "s3://${DATA_BUCKET}/raw/customers/northstar-raw-sample.csv" data/northstar-raw-sample.csv
-Completed 13.0 MiB/13.0 MiB (59.6 MiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/raw/customers/northstar-raw-sample.csv to data/northstar-raw-sample.csv
+[Container] 2026/10/30 20:26:51.949694 Running command aws s3 cp "s3://${DATA_BUCKET}/raw/customers/northstar-raw-sample.csv" data/northstar-raw-sample.csv
+Completed 13.0 MiB/13.0 MiB (66.1 MiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/raw/customers/northstar-raw-sample.csv to data/northstar-raw-sample.csv
 
-[Container] 2026/10/30 12:47:03.836450 Running command aws s3 cp "s3://${DATA_BUCKET}/processed/customers/" data/processed/ --recursive --exclude "*_glue_temp*"
-Completed 942.3 KiB/3.7 MiB (8.3 MiB/s) with 4 file(s) remainingdownload: s3://northstar-dev-data-278634873542/processed/customers/part-00000-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00000-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
-Completed 942.3 KiB/3.7 MiB (8.3 MiB/s) with 3 file(s) remainingCompleted 1.8 MiB/3.7 MiB (15.0 MiB/s) with 3 file(s) remaining download: s3://northstar-dev-data-278634873542/processed/customers/part-00003-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00003-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
-Completed 1.8 MiB/3.7 MiB (15.0 MiB/s) with 2 file(s) remainingCompleted 2.8 MiB/3.7 MiB (17.3 MiB/s) with 2 file(s) remainingdownload: s3://northstar-dev-data-278634873542/processed/customers/part-00002-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00002-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
-Completed 2.8 MiB/3.7 MiB (17.3 MiB/s) with 1 file(s) remainingCompleted 3.7 MiB/3.7 MiB (22.8 MiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/processed/customers/part-00001-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00001-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
+[Container] 2026/10/30 20:26:52.920313 Running command aws s3 cp "s3://${DATA_BUCKET}/processed/customers/" data/processed/ --recursive --exclude "*_glue_temp*"
+Completed 942.7 KiB/3.7 MiB (6.7 MiB/s) with 4 file(s) remainingdownload: s3://northstar-dev-data-278634873542/processed/customers/part-00001-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00001-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
+Completed 942.7 KiB/3.7 MiB (6.7 MiB/s) with 3 file(s) remainingCompleted 1.8 MiB/3.7 MiB (13.0 MiB/s) with 3 file(s) remaining download: s3://northstar-dev-data-278634873542/processed/customers/part-00003-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00003-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
+Completed 1.8 MiB/3.7 MiB (13.0 MiB/s) with 2 file(s) remainingCompleted 2.8 MiB/3.7 MiB (19.3 MiB/s) with 2 file(s) remainingdownload: s3://northstar-dev-data-278634873542/processed/customers/part-00000-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00000-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
+Completed 2.8 MiB/3.7 MiB (19.3 MiB/s) with 1 file(s) remainingCompleted 3.7 MiB/3.7 MiB (25.5 MiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/processed/customers/part-00002-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet to data/processed/part-00002-817eed72-2d5a-4f8a-8954-242319139b5f-c000.snappy.parquet
 
-[Container] 2026/10/30 12:47:04.664733 Running command aws s3 cp "s3://${DATA_BUCKET}/features/customers/"  data/features/  --recursive
-Completed 152.5 KiB/309.1 KiB (2.2 MiB/s) with 2 file(s) remainingdownload: s3://northstar-dev-data-278634873542/features/customers/part-00001-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet to data/features/part-00001-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet
-Completed 152.5 KiB/309.1 KiB (2.2 MiB/s) with 1 file(s) remainingCompleted 309.1 KiB/309.1 KiB (2.1 MiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/features/customers/part-00000-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet to data/features/part-00000-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet
+[Container] 2026/10/30 20:26:53.712017 Running command aws s3 cp "s3://${DATA_BUCKET}/features/customers/"  data/features/  --recursive
+Completed 152.5 KiB/309.1 KiB (2.1 MiB/s) with 2 file(s) remainingdownload: s3://northstar-dev-data-278634873542/features/customers/part-00001-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet to data/features/part-00001-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet
+Completed 152.5 KiB/309.1 KiB (2.1 MiB/s) with 1 file(s) remainingCompleted 309.1 KiB/309.1 KiB (3.4 MiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/features/customers/part-00000-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet to data/features/part-00000-762ae1b4-682e-4522-86c5-5f55ccac10de-c000.snappy.parquet
 
-[Container] 2026/10/30 12:47:05.475522 Running command export NORTHSTAR_RAW=./data/northstar-raw-sample.csv
+[Container] 2026/10/30 20:26:54.466594 Running command export NORTHSTAR_RAW=./data/northstar-raw-sample.csv
 
-[Container] 2026/10/30 12:47:05.481573 Running command export NORTHSTAR_PROCESSED=./data/processed
+[Container] 2026/10/30 20:26:54.472004 Running command export NORTHSTAR_PROCESSED=./data/processed
 
-[Container] 2026/10/30 12:47:05.486693 Running command export NORTHSTAR_FEATURES=./data/features
+[Container] 2026/10/30 20:26:54.477257 Running command export NORTHSTAR_FEATURES=./data/features
 
-[Container] 2026/10/30 12:47:05.491924 Running command echo "Running data validation tests..."
+[Container] 2026/10/30 20:26:54.482331 Running command echo "Running data validation tests..."
 Running data validation tests...
 
-[Container] 2026/10/30 12:47:05.496895 Running command python -m pytest tests/test_data.py -v --tb=short --junitxml=reports/data_tests.xml
+[Container] 2026/10/30 20:26:54.487533 Running command python -m pytest tests/test_data.py -v --tb=short --junitxml=reports/data_tests.xml
 ============================= test session starts ==============================
 platform linux -- Python 3.11.17, pytest-9.2.0, pluggy-1.7.0 -- /root/.pyenv/versions/3.11.17/bin/python
 cachedir: .pytest_cache
-rootdir: /codebuild/output/src2293869689/src
+rootdir: /codebuild/output/src2519504925/src
 configfile: pytest.ini
-plugins: platformdirs-4.13.1, anyio-4.15.1
+plugins: platformdirs-4.13.7, anyio-4.15.1
 collecting ... collected 28 items
 
 tests/test_data.py::TestRawData::test_schema PASSED                      [  3%]
@@ -381,19 +371,19 @@ tests/test_data.py::TestFeatures::test_all_features_match_observation_history PA
 tests/test_data.py::TestConsistency::test_feature_customers_are_subset_of_processed PASSED [ 96%]
 tests/test_data.py::TestConsistency::test_row_survival_rate PASSED       [100%]
 
-- generated xml file: /codebuild/output/src2293869689/src/reports/data_tests.xml -
-============================== 28 passed in 1.25s ==============================
+- generated xml file: /codebuild/output/src2519504925/src/reports/data_tests.xml -
+============================== 28 passed in 0.95s ==============================
 
-[Container] 2026/10/30 12:47:07.965898 Running command echo "Running feature engineering tests..."
+[Container] 2026/10/30 20:26:56.862862 Running command echo "Running feature engineering tests..."
 Running feature engineering tests...
 
-[Container] 2026/10/30 12:47:07.971817 Running command python -m pytest tests/test_features.py -v --tb=short --junitxml=reports/feature_tests.xml
+[Container] 2026/10/30 20:26:56.871235 Running command python -m pytest tests/test_features.py -v --tb=short --junitxml=reports/feature_tests.xml
 ============================= test session starts ==============================
 platform linux -- Python 3.11.17, pytest-9.2.0, pluggy-1.7.0 -- /root/.pyenv/versions/3.11.17/bin/python
 cachedir: .pytest_cache
-rootdir: /codebuild/output/src2293869689/src
+rootdir: /codebuild/output/src2519504925/src
 configfile: pytest.ini
-plugins: platformdirs-4.13.1, anyio-4.15.1
+plugins: platformdirs-4.13.7, anyio-4.15.1
 collecting ... collected 31 items
 
 tests/test_features.py::TestRecencyFeatures::test_days_since_last_purchase_correct PASSED [  3%]
@@ -428,28 +418,28 @@ tests/test_features.py::test_freshness_rejects_stale_or_future_events[-1] PASSED
 tests/test_features.py::test_freshness_uses_latest_ingestion_not_feature_cutoff PASSED [ 96%]
 tests/test_features.py::test_parity_rejects_boundary_and_customer_population_errors PASSED [100%]
 
-- generated xml file: /codebuild/output/src2293869689/src/reports/feature_tests.xml -
-============================== 31 passed in 0.60s ==============================
+- generated xml file: /codebuild/output/src2519504925/src/reports/feature_tests.xml -
+============================== 31 passed in 0.59s ==============================
 
-[Container] 2026/10/30 12:47:08.890442 Running command echo "All pre-build tests passed ✓"
+[Container] 2026/10/30 20:26:57.793959 Running command echo "All pre-build tests passed ✓"
 All pre-build tests passed ✓
 
-[Container] 2026/10/30 12:47:08.896083 Phase complete: PRE_BUILD State: SUCCEEDED
-[Container] 2026/10/30 12:47:08.896091 Phase context status code:  Message: 
-[Container] 2026/10/30 12:47:08.933401 Entering phase BUILD
-[Container] 2026/10/30 12:47:08.934094 Running command echo "BUILD PHASE - Train and evaluate"
+[Container] 2026/10/30 20:26:57.799825 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2026/10/30 20:26:57.799835 Phase context status code:  Message: 
+[Container] 2026/10/30 20:26:57.843757 Entering phase BUILD
+[Container] 2026/10/30 20:26:57.844464 Running command echo "BUILD PHASE - Train and evaluate"
 BUILD PHASE - Train and evaluate
 
-[Container] 2026/10/30 12:47:08.939728 Running command export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+[Container] 2026/10/30 20:26:57.850294 Running command export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
-[Container] 2026/10/30 12:47:09.489327 Running command export DATA_BUCKET="${PROJECT}-${ENVIRONMENT}-data-${ACCOUNT_ID}"
+[Container] 2026/10/30 20:26:58.394679 Running command export DATA_BUCKET="${PROJECT}-${ENVIRONMENT}-data-${ACCOUNT_ID}"
 
-[Container] 2026/10/30 12:47:09.494848 Running command export COMMIT_SHA=$(echo "$CODEBUILD_RESOLVED_SOURCE_VERSION" | cut -c1-8)
+[Container] 2026/10/30 20:26:58.400200 Running command export COMMIT_SHA=$(echo "$CODEBUILD_RESOLVED_SOURCE_VERSION" | cut -c1-8)
 
-[Container] 2026/10/30 12:47:09.502664 Running command echo "Upserting SageMaker Pipeline ${PIPELINE_NAME}..."
+[Container] 2026/10/30 20:26:58.407476 Running command echo "Upserting SageMaker Pipeline ${PIPELINE_NAME}..."
 Upserting SageMaker Pipeline northstar-churn-pipeline...
 
-[Container] 2026/10/30 12:47:09.507927 Running command python models/churn/pipeline_definition.py \
+[Container] 2026/10/30 20:26:58.412596 Running command python models/churn/pipeline_definition.py \
   --role-arn "${SAGEMAKER_ROLE_ARN}" \
   --bucket "${DATA_BUCKET}" \
   --region "${AWS_REGION}" \
@@ -499,10 +489,10 @@ WARNING:sagemaker.workflow._utils:Popping out 'CertifyForMarketplace' from the p
 WARNING:sagemaker.workflow.utilities:Popping out 'ModelPackageName' from the pipeline definition by default since it will be overridden at pipeline execution time. Please utilize the PipelineDefinitionConfig to persist this field in the pipeline definition if desired.
 Upserted pipeline northstar-churn-pipeline
 
-[Container] 2026/10/30 12:47:18.894702 Running command echo "Starting SageMaker Pipeline execution..."
+[Container] 2026/10/30 20:27:08.960697 Running command echo "Starting SageMaker Pipeline execution..."
 Starting SageMaker Pipeline execution...
 
-[Container] 2026/10/30 12:47:18.900614 Running command EXECUTION_ARN=$(aws sagemaker start-pipeline-execution \
+[Container] 2026/10/30 20:27:08.967218 Running command EXECUTION_ARN=$(aws sagemaker start-pipeline-execution \
   --pipeline-name ${PIPELINE_NAME} \
   --pipeline-execution-display-name "codebuild-${COMMIT_SHA}" \
   --pipeline-parameters "Name=CommitSha,Value=${COMMIT_SHA}" \
@@ -511,9 +501,9 @@ Starting SageMaker Pipeline execution...
 echo "Pipeline execution started: $EXECUTION_ARN"
 echo $EXECUTION_ARN > /tmp/pipeline_execution_arn.txt
 
-Pipeline execution started: arn:aws:sagemaker:us-east-1:278634873542:pipeline/northstar-churn-pipeline/execution/lutqddgjezc6
+Pipeline execution started: arn:aws:sagemaker:us-east-1:278634873542:pipeline/northstar-churn-pipeline/execution/9zxuloc3033h
 
-[Container] 2026/10/30 12:47:19.908822 Running command EXECUTION_ARN=$(cat /tmp/pipeline_execution_arn.txt)
+[Container] 2026/10/30 20:27:10.127020 Running command EXECUTION_ARN=$(cat /tmp/pipeline_execution_arn.txt)
 echo "Waiting for pipeline completion..."
 MAX_WAIT=2700
 ELAPSED=0
@@ -562,30 +552,29 @@ Waiting for pipeline completion...
   [90s] Pipeline status: Executing
   [120s] Pipeline status: Executing
   [150s] Pipeline status: Executing
-  [180s] Pipeline status: Executing
-  [210s] Pipeline status: Succeeded
+  [180s] Pipeline status: Succeeded
 Pipeline succeeded
-Registered: arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/3
+Registered: arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/7
 
-[Container] 2026/10/30 12:50:56.290048 Running command echo "Retrieving evaluation metrics..."
+[Container] 2026/10/30 20:30:15.699133 Running command echo "Retrieving evaluation metrics..."
 Retrieving evaluation metrics...
 
-[Container] 2026/10/30 12:50:56.295524 Running command aws s3 cp \
+[Container] 2026/10/30 20:30:15.704606 Running command aws s3 cp \
   "s3://${DATA_BUCKET}/artifacts/evaluations/${COMMIT_SHA}/evaluation_metrics.json" \
   /tmp/eval_metrics.json
 
-Completed 1007 Bytes/1007 Bytes (17.3 KiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/artifacts/evaluations/243149cd/evaluation_metrics.json to ../../../../tmp/eval_metrics.json
+Completed 1007 Bytes/1007 Bytes (19.7 KiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/artifacts/evaluations/a85d7a13/evaluation_metrics.json to ../../../../tmp/eval_metrics.json
 
-[Container] 2026/10/30 12:50:56.999914 Running command export EVAL_METRICS_PATH=/tmp/eval_metrics.json
+[Container] 2026/10/30 20:30:16.419256 Running command export EVAL_METRICS_PATH=/tmp/eval_metrics.json
 
-[Container] 2026/10/30 12:50:57.005313 Running command cat /tmp/eval_metrics.json
+[Container] 2026/10/30 20:30:16.424598 Running command cat /tmp/eval_metrics.json
 {
   "auc_roc": 0.7819,
   "auc_vs_baseline": 0.0611,
   "baseline_auc": 0.7208,
   "baseline_auc_roc": 0.7208,
-  "commit_sha": "243149cd",
-  "eval_timestamp": "2026-10-30T12:50:12.355511+00:00",
+  "commit_sha": "a85d7a13",
+  "eval_timestamp": "2026-10-30T20:29:48.384725+00:00",
   "lift_ci_high": 0.0813,
   "lift_ci_low": 0.0413,
   "n_val_samples": 3000,
@@ -613,7 +602,7 @@ Completed 1007 Bytes/1007 Bytes (17.3 KiB/s) with 1 file(s) remainingdownload: 
   "slice_silver_recall_flag": true,
   "slice_silver_recall_top10": 0.2124
 }
-[Container] 2026/10/30 12:50:57.011006 Running command EXECUTION_ARN=$(cat /tmp/pipeline_execution_arn.txt)
+[Container] 2026/10/30 20:30:16.430325 Running command EXECUTION_ARN=$(cat /tmp/pipeline_execution_arn.txt)
 TRAIN_JOB=$(aws sagemaker list-pipeline-execution-steps \
   --pipeline-execution-arn $EXECUTION_ARN \
   --query "PipelineExecutionSteps[?StepName=='TrainChurnModel'].Metadata.TrainingJob.Arn" \
@@ -633,19 +622,19 @@ aws s3 cp \
   /tmp/model/model_metadata.json
 ls -la /tmp/model
 
-Training job: pipelines-lutqddgjezc6-TrainChurnModel-PGnhXlH8hu
-Model artifact: s3://northstar-dev-data-278634873542/artifacts/training/pipelines-lutqddgjezc6-TrainChurnModel-PGnhXlH8hu/output/model.tar.gz
-Completed 28.0 KiB/28.0 KiB (406.9 KiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/artifacts/training/pipelines-lutqddgjezc6-TrainChurnModel-PGnhXlH8hu/output/model.tar.gz to ../../../../tmp/model/model.tar.gz
+Training job: pipelines-9zxuloc3033h-TrainChurnModel-anhXBsM3Az
+Model artifact: s3://northstar-dev-data-278634873542/artifacts/training/pipelines-9zxuloc3033h-TrainChurnModel-anhXBsM3Az/output/model.tar.gz
+Completed 28.0 KiB/28.0 KiB (341.2 KiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/artifacts/training/pipelines-9zxuloc3033h-TrainChurnModel-anhXBsM3Az/output/model.tar.gz to ../../../../tmp/model/model.tar.gz
 tar: Ignoring unknown extended header keyword 'LIBARCHIVE.creationtime'
-Completed 5.3 KiB/5.3 KiB (114.8 KiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/artifacts/evaluations/243149cd/model_metadata.json to ../../../../tmp/model/model_metadata.json
+Completed 5.3 KiB/5.3 KiB (134.8 KiB/s) with 1 file(s) remainingdownload: s3://northstar-dev-data-278634873542/artifacts/evaluations/a85d7a13/model_metadata.json to ../../../../tmp/model/model_metadata.json
 total 172
-drwxr-xr-x 2 root root     74 Oct 30 12:50 .
-drwxrwxrwt 1 root root    141 Oct 30 12:50 ..
--rw-r--r-- 1 root root  28621 Oct 30 12:50 model.tar.gz
--rw-r--r-- 1 root root   5437 Oct 30 12:50 model_metadata.json
--rw-r--r-- 1 root root 135372 Oct 30 12:50 xgboost-model
+drwxr-xr-x 2 root root     74 Oct 30 20:30 .
+drwxrwxrwt 1 root root    141 Oct 30 20:30 ..
+-rw-r--r-- 1 root root  28624 Oct 30 20:30 model.tar.gz
+-rw-r--r-- 1 root root   5437 Oct 30 20:29 model_metadata.json
+-rw-r--r-- 1 root root 135372 Oct 30 20:29 xgboost-model
 
-[Container] 2026/10/30 12:50:59.867648 Running command python -m pytest tests/ -v -rw --tb=short \
+[Container] 2026/10/30 20:30:19.313001 Running command python -m pytest tests/ -v -rw --tb=short \
   --eval-metrics-path /tmp/eval_metrics.json \
   --model-path /tmp/model/xgboost-model \
   --junitxml=reports/model_gate.xml
@@ -653,10 +642,10 @@ drwxrwxrwt 1 root root    141 Oct 30 12:50 ..
 ============================= test session starts ==============================
 platform linux -- Python 3.11.17, pytest-9.2.0, pluggy-1.7.0 -- /root/.pyenv/versions/3.11.17/bin/python
 cachedir: .pytest_cache
-rootdir: /codebuild/output/src2293869689/src
+rootdir: /codebuild/output/src2519504925/src
 configfile: pytest.ini
-plugins: platformdirs-4.13.1, anyio-4.15.1
-collecting ... collected 116 items
+plugins: platformdirs-4.13.7, anyio-4.15.1
+collecting ... collected 127 items
 
 tests/test_churn_training.py::TestChurnTraining::test_bootstrap_preserves_pairing_and_is_reproducible PASSED [  0%]
 tests/test_churn_training.py::TestChurnTraining::test_failed_promotion_gates_raise 
@@ -664,155 +653,166 @@ tests/test_churn_training.py::TestChurnTraining::test_failed_promotion_gates_rai
 tests/test_churn_training.py::TestChurnTraining::test_invalid_or_single_class_labels_are_rejected 
 tests/test_churn_training.py::TestChurnTraining::test_invalid_or_single_class_labels_are_rejected PASSED [  2%]
 tests/test_churn_training.py::TestChurnTraining::test_label_filtering_keeps_tiers_aligned_and_passes_seed PASSED [  3%]
-tests/test_churn_training.py::TestChurnTraining::test_missing_columns_are_reported PASSED [  4%]
-tests/test_churn_training.py::TestChurnTraining::test_slices_use_global_cutoff_and_handle_single_class_tiers PASSED [  5%]
-tests/test_churn_training.py::TestChurnTraining::test_training_channel_produces_serializable_model_and_metrics PASSED [  6%]
+tests/test_churn_training.py::TestChurnTraining::test_missing_columns_are_reported PASSED [  3%]
+tests/test_churn_training.py::TestChurnTraining::test_slices_use_global_cutoff_and_handle_single_class_tiers PASSED [  4%]
+tests/test_churn_training.py::TestChurnTraining::test_training_channel_produces_serializable_model_and_metrics PASSED [  5%]
 tests/test_claims.py::ClaimValidationTests::test_cannot_change_incentive_tier_or_verification 
 tests/test_claims.py::ClaimValidationTests::test_cannot_change_incentive_tier_or_verification PASSED [  6%]
 tests/test_claims.py::ClaimValidationTests::test_json_is_not_repaired_or_coerced 
 tests/test_claims.py::ClaimValidationTests::test_json_is_not_repaired_or_coerced PASSED [  7%]
 tests/test_claims.py::ClaimValidationTests::test_rejects_wrong_types_unknown_fields_and_missing_fields 
-tests/test_claims.py::ClaimValidationTests::test_rejects_wrong_types_unknown_fields_and_missing_fields PASSED [  8%]
+tests/test_claims.py::ClaimValidationTests::test_rejects_wrong_types_unknown_fields_and_missing_fields PASSED [  7%]
 tests/test_claims.py::ClaimValidationTests::test_valid_metadata_cannot_hide_unsupported_prose 
-tests/test_claims.py::ClaimValidationTests::test_valid_metadata_cannot_hide_unsupported_prose PASSED [  9%]
-tests/test_claims.py::ClaimValidationTests::test_valid_payload_returns_customer_copy_without_metadata PASSED [ 10%]
-tests/test_data.py::TestRawData::test_schema PASSED                      [ 11%]
-tests/test_data.py::TestRawData::test_row_count_plausible PASSED         [ 12%]
-tests/test_data.py::TestRawData::test_contains_defects_to_clean PASSED   [ 12%]
-tests/test_data.py::TestRawData::test_contains_mixed_date_formats PASSED [ 13%]
-tests/test_data.py::TestProcessedData::test_schema PASSED                [ 14%]
-tests/test_data.py::TestProcessedData::test_no_null_customer_id PASSED   [ 15%]
-tests/test_data.py::TestProcessedData::test_no_duplicate_transactions PASSED [ 16%]
-tests/test_data.py::TestProcessedData::test_all_dates_parsed PASSED      [ 17%]
-tests/test_data.py::TestProcessedData::test_no_null_order_value PASSED   [ 18%]
-tests/test_data.py::TestProcessedData::test_order_value_in_range PASSED  [ 18%]
-tests/test_data.py::TestProcessedData::test_customer_id_whitespace_trimmed PASSED [ 19%]
-tests/test_data.py::TestProcessedData::test_channel_values_valid PASSED  [ 20%]
-tests/test_data.py::TestProcessedData::test_transaction_grain_preserved PASSED [ 21%]
-tests/test_data.py::TestFeatures::test_schema PASSED                     [ 22%]
-tests/test_data.py::TestFeatures::test_one_row_per_customer PASSED       [ 23%]
-tests/test_data.py::TestFeatures::test_no_nulls PASSED                   [ 24%]
-tests/test_data.py::TestFeatures::test_all_tiers_present PASSED          [ 25%]
-tests/test_data.py::TestFeatures::test_churn_label_binary PASSED         [ 25%]
-tests/test_data.py::TestFeatures::test_churn_rate_plausible PASSED       [ 26%]
-tests/test_data.py::TestFeatures::test_bounded_features_in_range PASSED  [ 27%]
-tests/test_data.py::TestFeatures::test_non_negative_counts PASSED        [ 28%]
-tests/test_data.py::TestFeatures::test_frequency_windows_are_monotonic PASSED [ 29%]
-tests/test_data.py::TestFeatures::test_label_not_trivially_separable PASSED [ 30%]
-tests/test_data.py::TestFeatures::test_recency_within_observation_window PASSED [ 31%]
-tests/test_data.py::TestFeatures::test_features_are_fresh PASSED         [ 31%]
-tests/test_data.py::TestFeatures::test_all_features_match_observation_history PASSED [ 32%]
-tests/test_data.py::TestConsistency::test_feature_customers_are_subset_of_processed PASSED [ 33%]
-tests/test_data.py::TestConsistency::test_row_survival_rate PASSED       [ 34%]
-tests/test_fairness.py::test_all_loyalty_tiers_have_usable_metrics PASSED [ 35%]
-tests/test_fairness.py::test_loyalty_recall_gap_is_visible_to_approver PASSED [ 36%]
-tests/test_features.py::TestRecencyFeatures::test_days_since_last_purchase_correct PASSED [ 37%]
-tests/test_features.py::TestRecencyFeatures::test_recent_buyer_low_recency PASSED [ 37%]
-tests/test_features.py::TestRecencyFeatures::test_no_negative_recency PASSED [ 38%]
-tests/test_features.py::TestRecencyFeatures::test_customer_with_no_transactions_returns_sentinel PASSED [ 39%]
-tests/test_features.py::TestFrequencyFeatures::test_frequency_90d_correct PASSED [ 40%]
-tests/test_features.py::TestFrequencyFeatures::test_frequency_90d_excludes_older_transactions PASSED [ 41%]
-tests/test_features.py::TestFrequencyFeatures::test_frequency_is_non_negative PASSED [ 42%]
-tests/test_features.py::TestFrequencyFeatures::test_frequency_180d_gte_frequency_90d PASSED [ 43%]
-tests/test_features.py::TestMonetaryFeatures::test_avg_basket_size_correct PASSED [ 43%]
-tests/test_features.py::TestMonetaryFeatures::test_total_spend_90d_is_sum_not_average PASSED [ 44%]
-tests/test_features.py::TestMonetaryFeatures::test_monetary_features_non_negative PASSED [ 45%]
-tests/test_features.py::TestBehavioralFeatures::test_category_diversity_score_range PASSED [ 46%]
-tests/test_features.py::TestBehavioralFeatures::test_single_category_buyer_has_low_diversity PASSED [ 47%]
-tests/test_features.py::TestBehavioralFeatures::test_multi_category_buyer_has_high_diversity PASSED [ 48%]
-tests/test_features.py::TestBehavioralFeatures::test_online_to_store_ratio_non_negative PASSED [ 49%]
-tests/test_features.py::TestFullFeatureSet::test_all_required_features_present PASSED [ 50%]
-tests/test_features.py::TestFullFeatureSet::test_no_null_features_for_known_customers PASSED [ 50%]
-tests/test_features.py::TestFullFeatureSet::test_zero_purchase_customer_has_explicit_defaults PASSED [ 51%]
-tests/test_features.py::TestFullFeatureSet::test_single_transaction_has_exact_values PASSED [ 52%]
-tests/test_features.py::TestFullFeatureSet::test_entirely_empty_transaction_table_keeps_roster PASSED [ 53%]
-tests/test_features.py::TestFullFeatureSet::test_exact_lower_window_boundary_is_included[30] PASSED [ 54%]
-tests/test_features.py::TestFullFeatureSet::test_exact_lower_window_boundary_is_included[90] PASSED [ 55%]
-tests/test_features.py::TestFullFeatureSet::test_exact_lower_window_boundary_is_included[180] PASSED [ 56%]
-tests/test_features.py::TestFullFeatureSet::test_holdout_cannot_change_any_feature PASSED [ 56%]
-tests/test_features.py::TestFullFeatureSet::test_unknown_category_and_empty_recent_window PASSED [ 57%]
-tests/test_features.py::TestFullFeatureSet::test_output_has_customer_id_column PASSED [ 58%]
-tests/test_features.py::test_freshness_rejects_stale_or_future_events[48] PASSED [ 59%]
-tests/test_features.py::test_freshness_rejects_stale_or_future_events[49] PASSED [ 60%]
-tests/test_features.py::test_freshness_rejects_stale_or_future_events[-1] PASSED [ 61%]
-tests/test_features.py::test_freshness_uses_latest_ingestion_not_feature_cutoff PASSED [ 62%]
-tests/test_features.py::test_parity_rejects_boundary_and_customer_population_errors PASSED [ 62%]
-tests/test_gate_logic.py::test_fairness_warns_without_failing_and_ten_point_boundary_is_quiet PASSED [ 63%]
-tests/test_gate_logic.py::test_unusable_slice_evidence_blocks_the_gate PASSED [ 64%]
-tests/test_gate_logic.py::test_regression_tolerance_and_warning[0.78-True] PASSED [ 65%]
-tests/test_gate_logic.py::test_regression_tolerance_and_warning[0.7799-False] PASSED [ 66%]
-tests/test_gate_logic.py::test_regression_tolerance_and_warning[0.81-True] PASSED [ 67%]
-tests/test_gate_logic.py::test_champion_lookup_filters_approved_packages_and_reads_registered_metrics PASSED [ 68%]
-tests/test_gate_logic.py::test_no_champion_is_distinct_from_an_aws_failure PASSED [ 68%]
-tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[auc_roc-None] PASSED [ 69%]
-tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[precision_top10-nan] PASSED [ 70%]
-tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[recall_top10-2] PASSED [ 71%]
-tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[lift_ci_low-inf] PASSED [ 72%]
-tests/test_model.py::TestModelLoading::test_model_loads_successfully PASSED [ 73%]
-tests/test_model.py::TestModelLoading::test_model_has_expected_feature_count PASSED [ 74%]
-tests/test_model.py::TestModelLoading::test_model_metadata_exists PASSED [ 75%]
-tests/test_model.py::TestModelLoading::test_model_metadata_has_evaluation_metrics PASSED [ 75%]
-tests/test_model.py::TestModelLoading::test_metadata_records_feature_list PASSED [ 76%]
-tests/test_model.py::TestPredictionOutput::test_predictions_are_probabilities PASSED [ 77%]
-tests/test_model.py::TestPredictionOutput::test_predictions_have_no_nans PASSED [ 78%]
-tests/test_model.py::TestPredictionOutput::test_predictions_use_full_probability_range PASSED [ 79%]
-tests/test_model.py::TestPredictionOutput::test_single_sample_inference PASSED [ 80%]
-tests/test_model.py::TestModelDiscrimination::test_churners_score_higher_than_retainers PASSED [ 81%]
-tests/test_model.py::TestModelDiscrimination::test_auc_roc_on_synthetic_data PASSED [ 81%]
-tests/test_model.py::TestModelRobustness::test_model_handles_missing_values PASSED [ 82%]
-tests/test_model.py::TestModelRobustness::test_model_monotone_on_recency PASSED [ 83%]
-tests/test_model.py::TestModelRobustness::test_prediction_stability_across_calls PASSED [ 84%]
-tests/test_model.py::TestStoredMetricsGate::test_precision_top10_meets_threshold PASSED [ 85%]
-tests/test_model.py::TestStoredMetricsGate::test_recall_top10_meets_threshold PASSED [ 86%]
-tests/test_model.py::TestStoredMetricsGate::test_model_beats_baseline PASSED [ 87%]
-tests/test_model.py::TestStoredMetricsGate::test_positive_rate_is_realistic PASSED [ 87%]
-tests/test_model.py::TestStoredMetricsGate::test_candidate_does_not_regress_against_approved_champion PASSED [ 88%]
-tests/test_rag.py::RAGTests::test_all_retrieval_strategies_and_accepted_generation PASSED [ 89%]
-tests/test_rag.py::RAGTests::test_invalid_claims_retry_then_accept_only_valid_response PASSED [ 90%]
-tests/test_rag.py::RAGTests::test_invitation_cannot_add_a_second_incentive PASSED [ 91%]
-tests/test_rag.py::RAGTests::test_live_features_require_explicit_categories_and_prediction PASSED [ 92%]
-tests/test_rag.py::RAGTests::test_missing_or_changed_policy_does_not_authorize_benefits PASSED [ 93%]
-tests/test_rag.py::RAGTests::test_no_supported_benefit_skips_generation PASSED [ 93%]
-tests/test_rag.py::RAGTests::test_partial_metric_results_do_not_pass PASSED [ 94%]
-tests/test_rag.py::RAGTests::test_policy_checks_and_failed_generation_fallback PASSED [ 95%]
-tests/test_rag.py::RAGTests::test_rejected_copy_uses_a_validated_fallback PASSED [ 96%]
-tests/test_rag.py::RAGTests::test_roundtrip_and_integrity_and_policy_invalidation PASSED [ 97%]
-tests/test_rag.py::RAGTests::test_selected_benefit_gets_original_evidence_if_search_misses_it PASSED [ 98%]
-tests/test_rag.py::RAGTests::test_selection_is_tier_specific_and_preserves_uncertain_eligibility PASSED [ 99%]
-tests/test_rag.py::RAGTests::test_table_headers_repeated_and_token_limit PASSED [100%]
+tests/test_claims.py::ClaimValidationTests::test_valid_metadata_cannot_hide_unsupported_prose PASSED [  8%]
+tests/test_claims.py::ClaimValidationTests::test_valid_payload_returns_customer_copy_without_metadata PASSED [  9%]
+tests/test_data.py::TestRawData::test_schema PASSED                      [ 10%]
+tests/test_data.py::TestRawData::test_row_count_plausible PASSED         [ 11%]
+tests/test_data.py::TestRawData::test_contains_defects_to_clean PASSED   [ 11%]
+tests/test_data.py::TestRawData::test_contains_mixed_date_formats PASSED [ 12%]
+tests/test_data.py::TestProcessedData::test_schema PASSED                [ 13%]
+tests/test_data.py::TestProcessedData::test_no_null_customer_id PASSED   [ 14%]
+tests/test_data.py::TestProcessedData::test_no_duplicate_transactions PASSED [ 14%]
+tests/test_data.py::TestProcessedData::test_all_dates_parsed PASSED      [ 15%]
+tests/test_data.py::TestProcessedData::test_no_null_order_value PASSED   [ 16%]
+tests/test_data.py::TestProcessedData::test_order_value_in_range PASSED  [ 17%]
+tests/test_data.py::TestProcessedData::test_customer_id_whitespace_trimmed PASSED [ 18%]
+tests/test_data.py::TestProcessedData::test_channel_values_valid PASSED  [ 18%]
+tests/test_data.py::TestProcessedData::test_transaction_grain_preserved PASSED [ 19%]
+tests/test_data.py::TestFeatures::test_schema PASSED                     [ 20%]
+tests/test_data.py::TestFeatures::test_one_row_per_customer PASSED       [ 21%]
+tests/test_data.py::TestFeatures::test_no_nulls PASSED                   [ 22%]
+tests/test_data.py::TestFeatures::test_all_tiers_present PASSED          [ 22%]
+tests/test_data.py::TestFeatures::test_churn_label_binary PASSED         [ 23%]
+tests/test_data.py::TestFeatures::test_churn_rate_plausible PASSED       [ 24%]
+tests/test_data.py::TestFeatures::test_bounded_features_in_range PASSED  [ 25%]
+tests/test_data.py::TestFeatures::test_non_negative_counts PASSED        [ 25%]
+tests/test_data.py::TestFeatures::test_frequency_windows_are_monotonic PASSED [ 26%]
+tests/test_data.py::TestFeatures::test_label_not_trivially_separable PASSED [ 27%]
+tests/test_data.py::TestFeatures::test_recency_within_observation_window PASSED [ 28%]
+tests/test_data.py::TestFeatures::test_features_are_fresh PASSED         [ 29%]
+tests/test_data.py::TestFeatures::test_all_features_match_observation_history PASSED [ 29%]
+tests/test_data.py::TestConsistency::test_feature_customers_are_subset_of_processed PASSED [ 30%]
+tests/test_data.py::TestConsistency::test_row_survival_rate PASSED       [ 31%]
+tests/test_fairness.py::test_all_loyalty_tiers_have_usable_metrics PASSED [ 32%]
+tests/test_fairness.py::test_loyalty_recall_gap_is_visible_to_approver PASSED [ 33%]
+tests/test_features.py::TestRecencyFeatures::test_days_since_last_purchase_correct PASSED [ 33%]
+tests/test_features.py::TestRecencyFeatures::test_recent_buyer_low_recency PASSED [ 34%]
+tests/test_features.py::TestRecencyFeatures::test_no_negative_recency PASSED [ 35%]
+tests/test_features.py::TestRecencyFeatures::test_customer_with_no_transactions_returns_sentinel PASSED [ 36%]
+tests/test_features.py::TestFrequencyFeatures::test_frequency_90d_correct PASSED [ 37%]
+tests/test_features.py::TestFrequencyFeatures::test_frequency_90d_excludes_older_transactions PASSED [ 37%]
+tests/test_features.py::TestFrequencyFeatures::test_frequency_is_non_negative PASSED [ 38%]
+tests/test_features.py::TestFrequencyFeatures::test_frequency_180d_gte_frequency_90d PASSED [ 39%]
+tests/test_features.py::TestMonetaryFeatures::test_avg_basket_size_correct PASSED [ 40%]
+tests/test_features.py::TestMonetaryFeatures::test_total_spend_90d_is_sum_not_average PASSED [ 40%]
+tests/test_features.py::TestMonetaryFeatures::test_monetary_features_non_negative PASSED [ 41%]
+tests/test_features.py::TestBehavioralFeatures::test_category_diversity_score_range PASSED [ 42%]
+tests/test_features.py::TestBehavioralFeatures::test_single_category_buyer_has_low_diversity PASSED [ 43%]
+tests/test_features.py::TestBehavioralFeatures::test_multi_category_buyer_has_high_diversity PASSED [ 44%]
+tests/test_features.py::TestBehavioralFeatures::test_online_to_store_ratio_non_negative PASSED [ 44%]
+tests/test_features.py::TestFullFeatureSet::test_all_required_features_present PASSED [ 45%]
+tests/test_features.py::TestFullFeatureSet::test_no_null_features_for_known_customers PASSED [ 46%]
+tests/test_features.py::TestFullFeatureSet::test_zero_purchase_customer_has_explicit_defaults PASSED [ 47%]
+tests/test_features.py::TestFullFeatureSet::test_single_transaction_has_exact_values PASSED [ 48%]
+tests/test_features.py::TestFullFeatureSet::test_entirely_empty_transaction_table_keeps_roster PASSED [ 48%]
+tests/test_features.py::TestFullFeatureSet::test_exact_lower_window_boundary_is_included[30] PASSED [ 49%]
+tests/test_features.py::TestFullFeatureSet::test_exact_lower_window_boundary_is_included[90] PASSED [ 50%]
+tests/test_features.py::TestFullFeatureSet::test_exact_lower_window_boundary_is_included[180] PASSED [ 51%]
+tests/test_features.py::TestFullFeatureSet::test_holdout_cannot_change_any_feature PASSED [ 51%]
+tests/test_features.py::TestFullFeatureSet::test_unknown_category_and_empty_recent_window PASSED [ 52%]
+tests/test_features.py::TestFullFeatureSet::test_output_has_customer_id_column PASSED [ 53%]
+tests/test_features.py::test_freshness_rejects_stale_or_future_events[48] PASSED [ 54%]
+tests/test_features.py::test_freshness_rejects_stale_or_future_events[49] PASSED [ 55%]
+tests/test_features.py::test_freshness_rejects_stale_or_future_events[-1] PASSED [ 55%]
+tests/test_features.py::test_freshness_uses_latest_ingestion_not_feature_cutoff PASSED [ 56%]
+tests/test_features.py::test_parity_rejects_boundary_and_customer_population_errors PASSED [ 57%]
+tests/test_gate_logic.py::test_fairness_warns_without_failing_and_ten_point_boundary_is_quiet PASSED [ 58%]
+tests/test_gate_logic.py::test_unusable_slice_evidence_blocks_the_gate PASSED [ 59%]
+tests/test_gate_logic.py::test_regression_tolerance_and_warning[0.78-True] PASSED [ 59%]
+tests/test_gate_logic.py::test_regression_tolerance_and_warning[0.7799-False] PASSED [ 60%]
+tests/test_gate_logic.py::test_regression_tolerance_and_warning[0.81-True] PASSED [ 61%]
+tests/test_gate_logic.py::test_champion_lookup_filters_approved_packages_and_reads_registered_metrics PASSED [ 62%]
+tests/test_gate_logic.py::test_no_champion_is_distinct_from_an_aws_failure PASSED [ 62%]
+tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[auc_roc-None] PASSED [ 63%]
+tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[precision_top10-nan] PASSED [ 64%]
+tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[recall_top10-2] PASSED [ 65%]
+tests/test_gate_logic.py::test_missing_or_invalid_evaluation_metrics_fail[lift_ci_low-inf] PASSED [ 66%]
+tests/test_model.py::TestModelLoading::test_model_loads_successfully PASSED [ 66%]
+tests/test_model.py::TestModelLoading::test_model_has_expected_feature_count PASSED [ 67%]
+tests/test_model.py::TestModelLoading::test_model_metadata_exists PASSED [ 68%]
+tests/test_model.py::TestModelLoading::test_model_metadata_has_evaluation_metrics PASSED [ 69%]
+tests/test_model.py::TestModelLoading::test_metadata_records_feature_list PASSED [ 70%]
+tests/test_model.py::TestPredictionOutput::test_predictions_are_probabilities PASSED [ 70%]
+tests/test_model.py::TestPredictionOutput::test_predictions_have_no_nans PASSED [ 71%]
+tests/test_model.py::TestPredictionOutput::test_predictions_use_full_probability_range PASSED [ 72%]
+tests/test_model.py::TestPredictionOutput::test_single_sample_inference PASSED [ 73%]
+tests/test_model.py::TestModelDiscrimination::test_churners_score_higher_than_retainers PASSED [ 74%]
+tests/test_model.py::TestModelDiscrimination::test_auc_roc_on_synthetic_data PASSED [ 74%]
+tests/test_model.py::TestModelRobustness::test_model_handles_missing_values PASSED [ 75%]
+tests/test_model.py::TestModelRobustness::test_model_monotone_on_recency PASSED [ 76%]
+tests/test_model.py::TestModelRobustness::test_prediction_stability_across_calls PASSED [ 77%]
+tests/test_model.py::TestStoredMetricsGate::test_precision_top10_meets_threshold PASSED [ 77%]
+tests/test_model.py::TestStoredMetricsGate::test_recall_top10_meets_threshold PASSED [ 78%]
+tests/test_model.py::TestStoredMetricsGate::test_model_beats_baseline PASSED [ 79%]
+tests/test_model.py::TestStoredMetricsGate::test_positive_rate_is_realistic PASSED [ 80%]
+tests/test_model.py::TestStoredMetricsGate::test_candidate_does_not_regress_against_approved_champion PASSED [ 81%]
+tests/test_rag.py::RAGTests::test_all_retrieval_strategies_and_accepted_generation PASSED [ 81%]
+tests/test_rag.py::RAGTests::test_invalid_claims_retry_then_accept_only_valid_response PASSED [ 82%]
+tests/test_rag.py::RAGTests::test_invitation_cannot_add_a_second_incentive PASSED [ 83%]
+tests/test_rag.py::RAGTests::test_live_features_require_explicit_categories_and_prediction PASSED [ 84%]
+tests/test_rag.py::RAGTests::test_missing_or_changed_policy_does_not_authorize_benefits PASSED [ 85%]
+tests/test_rag.py::RAGTests::test_no_supported_benefit_skips_generation PASSED [ 85%]
+tests/test_rag.py::RAGTests::test_partial_metric_results_do_not_pass PASSED [ 86%]
+tests/test_rag.py::RAGTests::test_policy_checks_and_failed_generation_fallback PASSED [ 87%]
+tests/test_rag.py::RAGTests::test_rejected_copy_uses_a_validated_fallback PASSED [ 88%]
+tests/test_rag.py::RAGTests::test_roundtrip_and_integrity_and_policy_invalidation PASSED [ 88%]
+tests/test_rag.py::RAGTests::test_selected_benefit_gets_original_evidence_if_search_misses_it PASSED [ 89%]
+tests/test_rag.py::RAGTests::test_selection_is_tier_specific_and_preserves_uncertain_eligibility PASSED [ 90%]
+tests/test_rag.py::RAGTests::test_table_headers_repeated_and_token_limit PASSED [ 91%]
+tests/test_task2_evidence.py::test_valid_demonstration_handles_mixed_timezone_offsets PASSED [ 92%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[manual] PASSED [ 92%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[training_started] PASSED [ 93%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[new_version] PASSED [ 94%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[unconfirmed] PASSED [ 95%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[old_notification] PASSED [ 96%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[recovery_failed] PASSED [ 96%]
+tests/test_task2_evidence.py::test_incomplete_or_misleading_evidence_is_rejected[candidate_approved] PASSED [ 97%]
+tests/test_task2_evidence.py::test_snapshot_file_roundtrip_and_duplicate_labels_fail PASSED [ 98%]
+tests/test_task2_evidence.py::test_notification_summary_omits_recipient_and_message_body PASSED [ 99%]
+tests/test_task2_evidence.py::test_template_uses_one_native_push_trigger_for_configured_branch PASSED [100%]
 
 =============================== warnings summary ===============================
 tests/test_fairness.py::test_loyalty_recall_gap_is_visible_to_approver
-  /codebuild/output/src2293869689/src/tests/test_fairness.py:15: UserWarning: Fairness flag: loyalty-tier recall gap=0.3058 exceeds 0.10; recalls={'bronze': 0.4404, 'silver': 0.2124, 'gold': 0.1346, 'platinum': 0.1905}
+  /codebuild/output/src2519504925/src/tests/test_fairness.py:15: UserWarning: Fairness flag: loyalty-tier recall gap=0.3058 exceeds 0.10; recalls={'bronze': 0.4404, 'silver': 0.2124, 'gold': 0.1346, 'platinum': 0.1905}
     gap = warn_fairness_gap(evaluation_metrics)
 
 tests/test_model.py::TestModelLoading::test_model_loads_successfully
-  /codebuild/output/src2293869689/src/tests/test_model.py:81: UserWarning: [12:51:07] WARNING: /__w/xgboost/xgboost/src/c_api/c_api.cc:1509: Unknown file format: ``. Using UBJSON (`ubj`) as a guess.
+  /codebuild/output/src2519504925/src/tests/test_model.py:81: UserWarning: [20:30:27] WARNING: /__w/xgboost/xgboost/src/c_api/c_api.cc:1509: Unknown file format: ``. Using UBJSON (`ubj`) as a guess.
     model.load_model(model_path)
 
 tests/test_model.py::TestStoredMetricsGate::test_candidate_does_not_regress_against_approved_champion
-  /codebuild/output/src2293869689/src/tests/test_model.py:434: UserWarning: champion v2 auc=0.7819; candidate auc=0.7819
+  /codebuild/output/src2519504925/src/tests/test_model.py:434: UserWarning: champion v2 auc=0.7819; candidate auc=0.7819
     check_champion_regression(eval_metrics["auc_roc"], champion)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-- generated xml file: /codebuild/output/src2293869689/src/reports/model_gate.xml -
-============= 116 passed, 3 warnings, 32 subtests passed in 8.95s ==============
+- generated xml file: /codebuild/output/src2519504925/src/reports/model_gate.xml -
+============= 127 passed, 3 warnings, 32 subtests passed in 9.08s ==============
 
-[Container] 2026/10/30 12:51:09.440884 Phase complete: BUILD State: SUCCEEDED
-[Container] 2026/10/30 12:51:09.440904 Phase context status code:  Message: 
-[Container] 2026/10/30 12:51:09.472875 Entering phase POST_BUILD
-[Container] 2026/10/30 12:51:09.473505 Running command echo "=== POST-BUILD PHASE ==="
+[Container] 2026/10/30 20:30:29.009907 Phase complete: BUILD State: SUCCEEDED
+[Container] 2026/10/30 20:30:29.009927 Phase context status code:  Message: 
+[Container] 2026/10/30 20:30:29.054023 Entering phase POST_BUILD
+[Container] 2026/10/30 20:30:29.054629 Running command echo "=== POST-BUILD PHASE ==="
 === POST-BUILD PHASE ===
 
-[Container] 2026/10/30 12:51:09.479169 Running command echo "Build completed at $(date)"
-Build completed at Fri Oct 30 12:51:09 UTC 2026
+[Container] 2026/10/30 20:30:29.060142 Running command echo "Build completed at $(date)"
+Build completed at Fri Oct 30 20:30:29 UTC 2026
 
-[Container] 2026/10/30 12:51:09.484836 Running command echo "Build status $CODEBUILD_BUILD_SUCCEEDING"
+[Container] 2026/10/30 20:30:29.065986 Running command echo "Build status $CODEBUILD_BUILD_SUCCEEDING"
 Build status 1
 
-[Container] 2026/10/30 12:51:09.490010 Running command export COMMIT_SHA=$(echo "$CODEBUILD_RESOLVED_SOURCE_VERSION" | cut -c1-8)
+[Container] 2026/10/30 20:30:29.071211 Running command export COMMIT_SHA=$(echo "$CODEBUILD_RESOLVED_SOURCE_VERSION" | cut -c1-8)
 
-[Container] 2026/10/30 12:51:09.495876 Running command if [ "$CODEBUILD_BUILD_SUCCEEDING" = "0" ] && [ -s /tmp/model_package_arn.txt ]; then
+[Container] 2026/10/30 20:30:29.076944 Running command if [ "$CODEBUILD_BUILD_SUCCEEDING" = "0" ] && [ -s /tmp/model_package_arn.txt ]; then
   PKG=$(cat /tmp/model_package_arn.txt)
   aws sagemaker update-model-package --model-package-arn "$PKG" \
     --model-approval-status Rejected \
@@ -821,7 +821,7 @@ Build status 1
 fi
 
 
-[Container] 2026/10/30 12:51:09.501209 Running command aws cloudwatch put-metric-data \
+[Container] 2026/10/30 20:30:29.082080 Running command aws cloudwatch put-metric-data \
   --namespace NorthStar/CI \
   --metric-name BuildSucceeded \
   --dimensions Project=${PROJECT}-ci \
@@ -831,7 +831,7 @@ echo "Published NorthStar/CI BuildSucceeded=${CODEBUILD_BUILD_SUCCEEDING}"
 
 Published NorthStar/CI BuildSucceeded=1
 
-[Container] 2026/10/30 12:51:10.147270 Running command if [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
+[Container] 2026/10/30 20:30:29.657298 Running command if [ -n "${SLACK_WEBHOOK_URL:-}" ]; then
   if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ]; then
     MSG="✅ NorthStar CI passed — commit ${COMMIT_SHA}"
   else
@@ -843,23 +843,23 @@ Published NorthStar/CI BuildSucceeded=1
 fi
 
 
-[Container] 2026/10/30 12:51:10.153140 Phase complete: POST_BUILD State: SUCCEEDED
-[Container] 2026/10/30 12:51:10.153150 Phase context status code:  Message: 
-[Container] 2026/10/30 12:51:10.347005 Expanding base directory path: .
-[Container] 2026/10/30 12:51:10.348340 Assembling file list
-[Container] 2026/10/30 12:51:10.348350 Expanding .
-[Container] 2026/10/30 12:51:10.349587 Expanding file paths for base directory .
-[Container] 2026/10/30 12:51:10.349594 Assembling file list
-[Container] 2026/10/30 12:51:10.349596 Expanding reports/**/*
-[Container] 2026/10/30 12:51:10.350925 Found 3 file(s)
-[Container] 2026/10/30 12:51:10.382224 Preparing to copy TEST report northstar-test-reports
-[Container] 2026/10/30 12:51:10.382241 Expanding base directory path:  .
-[Container] 2026/10/30 12:51:10.383646 Assembling file list
-[Container] 2026/10/30 12:51:10.383654 Expanding .
-[Container] 2026/10/30 12:51:10.384905 Expanding file paths for base directory .
-[Container] 2026/10/30 12:51:10.384917 Assembling file list
-[Container] 2026/10/30 12:51:10.384919 Expanding reports/*.xml
-[Container] 2026/10/30 12:51:10.386266 Found 3 file(s)
-[Container] 2026/10/30 12:51:10.386275 Report export config is NO_EXPORT, skip exporting reports
-[Container] 2026/10/30 12:51:10.386564 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
-[Container] 2026/10/30 12:51:10.386574 Phase context status code:  Message: 
+[Container] 2026/10/30 20:30:29.663002 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2026/10/30 20:30:29.663013 Phase context status code:  Message: 
+[Container] 2026/10/30 20:30:29.850716 Expanding base directory path: .
+[Container] 2026/10/30 20:30:29.852030 Assembling file list
+[Container] 2026/10/30 20:30:29.852041 Expanding .
+[Container] 2026/10/30 20:30:29.853256 Expanding file paths for base directory .
+[Container] 2026/10/30 20:30:29.853263 Assembling file list
+[Container] 2026/10/30 20:30:29.853264 Expanding reports/**/*
+[Container] 2026/10/30 20:30:29.854545 Found 3 file(s)
+[Container] 2026/10/30 20:30:29.884967 Preparing to copy TEST report northstar-test-reports
+[Container] 2026/10/30 20:30:29.884978 Expanding base directory path:  .
+[Container] 2026/10/30 20:30:29.886265 Assembling file list
+[Container] 2026/10/30 20:30:29.886273 Expanding .
+[Container] 2026/10/30 20:30:29.887515 Expanding file paths for base directory .
+[Container] 2026/10/30 20:30:29.887525 Assembling file list
+[Container] 2026/10/30 20:30:29.887527 Expanding reports/*.xml
+[Container] 2026/10/30 20:30:29.888798 Found 3 file(s)
+[Container] 2026/10/30 20:30:29.888807 Report export config is NO_EXPORT, skip exporting reports
+[Container] 2026/10/30 20:30:29.889070 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2026/10/30 20:30:29.889078 Phase context status code:  Message: 

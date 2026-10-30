@@ -70,9 +70,9 @@ triggers CI; preserve the recovery run's exact identifiers when exporting logs.
   found AWS Connector for GitHub under authorized apps, not installed apps;
   the repository's App installation must be completed before retesting with
   a fresh push. The missing event was not replaced with a manual start.
-- The SNS email subscription was created, but the last AWS check still showed
-  PendingConfirmation. Complete confirmation before taking the BEFORE
-  snapshot. No deliberate failure has been pushed yet.
+- The SNS email subscription was initially PendingConfirmation. The recipient
+  confirmed it before the controlled demonstration; the address is omitted
+  from the captured evidence.
 
 ## GitHub App connection repair
 
@@ -84,3 +84,55 @@ permission are updated together through CloudFormation. The old connection
 is retained while the replacement is verified. A fresh push after the update
 is the automatic-trigger probe; previous manually started runs are not used
 as proof of push-trigger automation.
+
+The replacement connection was applied in place, updating only
+`NorthStarPipeline` and `CodePipelineRole`. Commit
+`bfa84857b5c64251c82f174bf90ec95b041b9f91` automatically started execution
+`3b77036c-483e-461b-a594-1a8055c18870` with trigger type **WebhookV2** and
+CodeBuild `northstar-ci:785d0932-6c69-48f1-aedb-2fd86e576ae1`. Exactly one
+execution matched the pushed SHA. The SNS email subscription was also
+confirmed before the failure demonstration.
+
+## Controlled demonstration
+
+An initial rehearsal was interrupted by an additional manual **Release change**
+execution of the preceding good commit. That run legitimately added a registry
+version during the first evidence window. The evidence validator rejected the
+version mismatch, the rehearsal files were archived locally, and the passing
+tests were restored before starting a fresh baseline. The final evidence uses
+only the repeated, uninterrupted sequence below.
+
+- **BEFORE:** automatic baseline commit
+  `e3fdc1c1d4cd0a06701946be4bcacf5828140f35` passed all 127 tests. The latest
+  package was v6, the alarm was OK, the email subscription was confirmed, and
+  no builds or training jobs were active when the snapshot was taken.
+- **AFTER FAILED RUN:** commit `c088d8c9f1bfca913ddef0341ef014bbc7fbfa92`
+  automatically started execution `f6d2ebc7-fb81-4044-bc4d-e66445b00005` and
+  build `northstar-ci:6e6a1838-58a9-4c52-92bf-e866710fc28d`. The deliberate
+  assertion failed in PRE_BUILD; BUILD never started. The registry remained
+  unchanged at v6, the alarm transitioned to ALARM, and SNS accepted the
+  notification at 20:24:19 UTC on October 30. The complete failed log and
+  AFTER FAILED RUN snapshot were captured after the alarm action.
+- The assertion was reverted in commit
+  `a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f`, retaining the failure and revert
+  commits in main history. Its recovery execution is
+  `ab837cba-fd17-4b8b-bffa-f31380637776`.
+- **AFTER REVERT:** automatic recovery build
+  `northstar-ci:83c2b00c-f9a2-4483-8805-6ccdfb6c8d72` passed **127 tests with
+  no skips**, registered exactly one additional version (**v7**,
+  PendingManualApproval), and the alarm naturally returned to OK. Champion v2
+  remained Approved; the log records `champion v2 auc=0.7819; candidate auc=0.7819`.
+
+All three recorded executions were WebhookV2-triggered. The validated snapshots
+show the registry sequence **6 → 6 → 7** and alarm sequence **OK → ALARM → OK**.
+The final ALARM action at 20:24:19 UTC matches the actual Gmail screenshot's
+2:24 PM receipt and message timestamp. The screenshot was visually checked and
+kept as provided; its subject and received time are visible.
+
+Required evidence is captured in `docs/lab4-failure-demo.txt`,
+`docs/lab4-build-failed.log`, `docs/lab4-build-green.log`,
+`docs/lab4-pipeline-runs.txt`, `docs/lab4-model-registry.json`, and
+`docs/lab4-alarm-email.png`. `validate-evidence` passed for the snapshot sequence,
+deliberate assertion log, and PNG; visual verification confirmed email content
+and timing. The final green log contains the live champion warning and the
+nonblocking fairness warning.

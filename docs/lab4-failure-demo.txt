@@ -1,0 +1,771 @@
+===== BEFORE (2026-10-30T20:20:32.017567+00:00) =====
+{
+  "captured_at": "2026-10-30T20:20:32.010764+00:00",
+  "pipeline_execution": {
+    "pipelineExecutionId": "af5ead99-3a4f-4225-bb77-7992baf73860",
+    "status": "InProgress",
+    "startTime": "2026-10-30T14:13:13.545000-06:00",
+    "lastUpdateTime": "2026-10-30T14:13:13.545000-06:00",
+    "sourceRevisions": [
+      {
+        "actionName": "GitHubSource",
+        "revisionId": "e3fdc1c1d4cd0a06701946be4bcacf5828140f35",
+        "revisionSummary": "{\"ProviderType\":\"GitHub\",\"CommitMessage\":\"Revert deliberate Task 2 pre-training failure\\n\\nThis reverts commit cb2da1557e8e031ec99fc78c3659b83a0dd5fad8. The first demo was interrupted by a concurrent manual execution; restore the green baseline before repeating it.\"}",
+        "revisionUrl": "https://us-east-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af&referenceType=COMMIT&FullRepositoryId=tom-esplin/cs401r-tesplin3&Commit=e3fdc1c1d4cd0a06701946be4bcacf5828140f35"
+      }
+    ],
+    "trigger": {
+      "triggerType": "WebhookV2",
+      "triggerDetail": "{\"connectionArn\":\"arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af\",\"repositoryId\":\"tom-esplin/cs401r-tesplin3\",\"branchName\":\"main\",\"commitId\":\"e3fdc1c1d4cd0a06701946be4bcacf5828140f35\",\"type\":\"PUSH_BRANCH\"}"
+    },
+    "executionMode": "SUPERSEDED"
+  },
+  "build": {
+    "id": "northstar-ci:ce897dda-d965-43c2-8b09-913a0ae9d2a5",
+    "resolvedSourceVersion": "e3fdc1c1d4cd0a06701946be4bcacf5828140f35",
+    "buildStatus": "SUCCEEDED",
+    "startTime": "2026-10-30T14:13:32.922000-06:00",
+    "endTime": "2026-10-30T14:19:05.097000-06:00",
+    "phases": [
+      {
+        "phaseType": "SUBMITTED",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:13:32.922000-06:00",
+        "endTime": "2026-10-30T14:13:33.039000-06:00",
+        "durationInSeconds": 0
+      },
+      {
+        "phaseType": "QUEUED",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:13:33.039000-06:00",
+        "endTime": "2026-10-30T14:13:33.732000-06:00",
+        "durationInSeconds": 0
+      },
+      {
+        "phaseType": "PROVISIONING",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:13:33.732000-06:00",
+        "endTime": "2026-10-30T14:13:36.949000-06:00",
+        "durationInSeconds": 3,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "DOWNLOAD_SOURCE",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:13:36.949000-06:00",
+        "endTime": "2026-10-30T14:13:39.576000-06:00",
+        "durationInSeconds": 2,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "INSTALL",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:13:39.576000-06:00",
+        "endTime": "2026-10-30T14:14:48.257000-06:00",
+        "durationInSeconds": 68,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "PRE_BUILD",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:14:48.257000-06:00",
+        "endTime": "2026-10-30T14:14:55.311000-06:00",
+        "durationInSeconds": 7,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "BUILD",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:14:55.311000-06:00",
+        "endTime": "2026-10-30T14:19:00.920000-06:00",
+        "durationInSeconds": 245,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "POST_BUILD",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:19:00.920000-06:00",
+        "endTime": "2026-10-30T14:19:01.693000-06:00",
+        "durationInSeconds": 0,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "UPLOAD_ARTIFACTS",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:19:01.693000-06:00",
+        "endTime": "2026-10-30T14:19:04.698000-06:00",
+        "durationInSeconds": 3,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "FINALIZING",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:19:04.698000-06:00",
+        "endTime": "2026-10-30T14:19:05.097000-06:00",
+        "durationInSeconds": 0,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "COMPLETED",
+        "startTime": "2026-10-30T14:19:05.097000-06:00"
+      }
+    ]
+  },
+  "model_packages": [
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 6,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/6",
+      "CreationTime": "2026-10-30T14:18:42.890000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 5,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/5",
+      "CreationTime": "2026-10-30T14:07:53.030000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 4,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/4",
+      "CreationTime": "2026-10-30T14:00:39.154000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 3,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/3",
+      "CreationTime": "2026-10-30T06:50:37.966000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 2,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/2",
+      "CreationTime": "2026-10-29T16:37:59.827000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "Approved",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 1,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/1",
+      "ModelPackageDescription": "Churn XGBoost trained 2026-10-10 on 3.4.1; AUC 0.7802, P@10% 0.7133, R@10% 0.3242",
+      "CreationTime": "2026-10-10T17:12:14.233000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    }
+  ],
+  "alarm": {
+    "AlarmName": "northstar-ci-build-failure",
+    "StateValue": "OK",
+    "StateUpdatedTimestamp": "2026-10-30T14:20:19.691000-06:00",
+    "ActionsEnabled": true,
+    "Period": 300
+  },
+  "alarm_actions": [
+    {
+      "Timestamp": "2026-10-30T14:20:19.746000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-30T14:10:19.737000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T16:39:06.317000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-29T16:28:06.330000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T15:19:06.331000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-29T15:04:06.325000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T15:03:06.326000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    }
+  ],
+  "subscriptions": [
+    {
+      "Protocol": "email",
+      "SubscriptionArn": "arn:aws:sns:us-east-1:278634873542:northstar-model-approvals:80f4e8da-76e1-4654-9ab8-7d3a8ff53f97"
+    }
+  ]
+}
+
+===== AFTER FAILED RUN (2026-10-30T20:24:32.728141+00:00) =====
+{
+  "captured_at": "2026-10-30T20:24:32.719143+00:00",
+  "pipeline_execution": {
+    "pipelineExecutionId": "f6d2ebc7-fb81-4044-bc4d-e66445b00005",
+    "status": "Failed",
+    "startTime": "2026-10-30T14:22:02.718000-06:00",
+    "lastUpdateTime": "2026-10-30T14:23:28.500000-06:00",
+    "sourceRevisions": [
+      {
+        "actionName": "GitHubSource",
+        "revisionId": "c088d8c9f1bfca913ddef0341ef014bbc7fbfa92",
+        "revisionSummary": "{\"ProviderType\":\"GitHub\",\"CommitMessage\":\"Demonstrate Task 2 halt and alarm from settled baseline\"}",
+        "revisionUrl": "https://us-east-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af&referenceType=COMMIT&FullRepositoryId=tom-esplin/cs401r-tesplin3&Commit=c088d8c9f1bfca913ddef0341ef014bbc7fbfa92"
+      }
+    ],
+    "trigger": {
+      "triggerType": "WebhookV2",
+      "triggerDetail": "{\"connectionArn\":\"arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af\",\"repositoryId\":\"tom-esplin/cs401r-tesplin3\",\"branchName\":\"main\",\"commitId\":\"c088d8c9f1bfca913ddef0341ef014bbc7fbfa92\",\"type\":\"PUSH_BRANCH\"}"
+    },
+    "executionMode": "SUPERSEDED"
+  },
+  "build": {
+    "id": "northstar-ci:6e6a1838-58a9-4c52-92bf-e866710fc28d",
+    "resolvedSourceVersion": "c088d8c9f1bfca913ddef0341ef014bbc7fbfa92",
+    "buildStatus": "FAILED",
+    "startTime": "2026-10-30T14:22:24.742000-06:00",
+    "endTime": "2026-10-30T14:23:17.312000-06:00",
+    "phases": [
+      {
+        "phaseType": "SUBMITTED",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:22:24.742000-06:00",
+        "endTime": "2026-10-30T14:22:24.864000-06:00",
+        "durationInSeconds": 0
+      },
+      {
+        "phaseType": "QUEUED",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:22:24.864000-06:00",
+        "endTime": "2026-10-30T14:22:25.404000-06:00",
+        "durationInSeconds": 0
+      },
+      {
+        "phaseType": "PROVISIONING",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:22:25.404000-06:00",
+        "endTime": "2026-10-30T14:22:29.119000-06:00",
+        "durationInSeconds": 3,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "DOWNLOAD_SOURCE",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:22:29.119000-06:00",
+        "endTime": "2026-10-30T14:22:29.804000-06:00",
+        "durationInSeconds": 0,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "INSTALL",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:22:29.804000-06:00",
+        "endTime": "2026-10-30T14:23:11.186000-06:00",
+        "durationInSeconds": 41,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "PRE_BUILD",
+        "phaseStatus": "FAILED",
+        "startTime": "2026-10-30T14:23:11.186000-06:00",
+        "endTime": "2026-10-30T14:23:17.020000-06:00",
+        "durationInSeconds": 5,
+        "contexts": [
+          {
+            "statusCode": "COMMAND_EXECUTION_ERROR",
+            "message": "Error while executing command: python -m pytest tests/test_features.py -v --tb=short --junitxml=reports/feature_tests.xml. Reason: exit status 1"
+          }
+        ]
+      },
+      {
+        "phaseType": "FINALIZING",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:23:17.020000-06:00",
+        "endTime": "2026-10-30T14:23:17.312000-06:00",
+        "durationInSeconds": 0,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "COMPLETED",
+        "startTime": "2026-10-30T14:23:17.312000-06:00"
+      }
+    ]
+  },
+  "model_packages": [
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 6,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/6",
+      "CreationTime": "2026-10-30T14:18:42.890000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 5,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/5",
+      "CreationTime": "2026-10-30T14:07:53.030000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 4,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/4",
+      "CreationTime": "2026-10-30T14:00:39.154000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 3,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/3",
+      "CreationTime": "2026-10-30T06:50:37.966000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 2,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/2",
+      "CreationTime": "2026-10-29T16:37:59.827000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "Approved",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 1,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/1",
+      "ModelPackageDescription": "Churn XGBoost trained 2026-10-10 on 3.4.1; AUC 0.7802, P@10% 0.7133, R@10% 0.3242",
+      "CreationTime": "2026-10-10T17:12:14.233000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    }
+  ],
+  "alarm": {
+    "AlarmName": "northstar-ci-build-failure",
+    "StateValue": "ALARM",
+    "StateUpdatedTimestamp": "2026-10-30T14:24:19.690000-06:00",
+    "ActionsEnabled": true,
+    "Period": 300
+  },
+  "alarm_actions": [
+    {
+      "Timestamp": "2026-10-30T14:24:19.732000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-30T14:20:19.746000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-30T14:10:19.737000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T16:39:06.317000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-29T16:28:06.330000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T15:19:06.331000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-29T15:04:06.325000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T15:03:06.326000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    }
+  ],
+  "subscriptions": [
+    {
+      "Protocol": "email",
+      "SubscriptionArn": "arn:aws:sns:us-east-1:278634873542:northstar-model-approvals:80f4e8da-76e1-4654-9ab8-7d3a8ff53f97"
+    }
+  ]
+}
+
+===== AFTER REVERT (2026-10-30T20:51:50.097115+00:00) =====
+{
+  "captured_at": "2026-10-30T20:51:50.091081+00:00",
+  "pipeline_execution": {
+    "pipelineExecutionId": "ab837cba-fd17-4b8b-bffa-f31380637776",
+    "status": "InProgress",
+    "startTime": "2026-10-30T14:25:25.498000-06:00",
+    "lastUpdateTime": "2026-10-30T14:25:25.498000-06:00",
+    "sourceRevisions": [
+      {
+        "actionName": "GitHubSource",
+        "revisionId": "a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f",
+        "revisionSummary": "{\"ProviderType\":\"GitHub\",\"CommitMessage\":\"Revert controlled Task 2 failure after alarm capture\\n\\nThis reverts commit c088d8c9f1bfca913ddef0341ef014bbc7fbfa92. The automatic run failed in PRE_BUILD without registering a version; its real ALARM and SNS action are recorded.\"}",
+        "revisionUrl": "https://us-east-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af&referenceType=COMMIT&FullRepositoryId=tom-esplin/cs401r-tesplin3&Commit=a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f"
+      }
+    ],
+    "trigger": {
+      "triggerType": "WebhookV2",
+      "triggerDetail": "{\"connectionArn\":\"arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af\",\"repositoryId\":\"tom-esplin/cs401r-tesplin3\",\"branchName\":\"main\",\"commitId\":\"a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f\",\"type\":\"PUSH_BRANCH\"}"
+    },
+    "executionMode": "SUPERSEDED"
+  },
+  "build": {
+    "id": "northstar-ci:83c2b00c-f9a2-4483-8805-6ccdfb6c8d72",
+    "resolvedSourceVersion": "a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f",
+    "buildStatus": "SUCCEEDED",
+    "startTime": "2026-10-30T14:25:40.780000-06:00",
+    "endTime": "2026-10-30T14:30:32.854000-06:00",
+    "phases": [
+      {
+        "phaseType": "SUBMITTED",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:25:40.780000-06:00",
+        "endTime": "2026-10-30T14:25:40.900000-06:00",
+        "durationInSeconds": 0
+      },
+      {
+        "phaseType": "QUEUED",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:25:40.900000-06:00",
+        "endTime": "2026-10-30T14:25:41.540000-06:00",
+        "durationInSeconds": 0
+      },
+      {
+        "phaseType": "PROVISIONING",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:25:41.540000-06:00",
+        "endTime": "2026-10-30T14:25:45.003000-06:00",
+        "durationInSeconds": 3,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "DOWNLOAD_SOURCE",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:25:45.003000-06:00",
+        "endTime": "2026-10-30T14:25:47.671000-06:00",
+        "durationInSeconds": 2,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "INSTALL",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:25:47.671000-06:00",
+        "endTime": "2026-10-30T14:26:51.373000-06:00",
+        "durationInSeconds": 63,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "PRE_BUILD",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:26:51.373000-06:00",
+        "endTime": "2026-10-30T14:26:57.822000-06:00",
+        "durationInSeconds": 6,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "BUILD",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:26:57.822000-06:00",
+        "endTime": "2026-10-30T14:30:29.042000-06:00",
+        "durationInSeconds": 211,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "POST_BUILD",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:30:29.042000-06:00",
+        "endTime": "2026-10-30T14:30:29.697000-06:00",
+        "durationInSeconds": 0,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "UPLOAD_ARTIFACTS",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:30:29.697000-06:00",
+        "endTime": "2026-10-30T14:30:32.455000-06:00",
+        "durationInSeconds": 2,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "FINALIZING",
+        "phaseStatus": "SUCCEEDED",
+        "startTime": "2026-10-30T14:30:32.455000-06:00",
+        "endTime": "2026-10-30T14:30:32.854000-06:00",
+        "durationInSeconds": 0,
+        "contexts": [
+          {
+            "statusCode": "",
+            "message": ""
+          }
+        ]
+      },
+      {
+        "phaseType": "COMPLETED",
+        "startTime": "2026-10-30T14:30:32.854000-06:00"
+      }
+    ]
+  },
+  "model_packages": [
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 7,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/7",
+      "CreationTime": "2026-10-30T14:30:09.935000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 6,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/6",
+      "CreationTime": "2026-10-30T14:18:42.890000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 5,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/5",
+      "CreationTime": "2026-10-30T14:07:53.030000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 4,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/4",
+      "CreationTime": "2026-10-30T14:00:39.154000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 3,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/3",
+      "CreationTime": "2026-10-30T06:50:37.966000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 2,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/2",
+      "CreationTime": "2026-10-29T16:37:59.827000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "Approved",
+      "ModelPackageRegistrationType": "Registered"
+    },
+    {
+      "ModelPackageGroupName": "northstar-churn-models",
+      "ModelPackageVersion": 1,
+      "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/1",
+      "ModelPackageDescription": "Churn XGBoost trained 2026-10-10 on 3.4.1; AUC 0.7802, P@10% 0.7133, R@10% 0.3242",
+      "CreationTime": "2026-10-10T17:12:14.233000-06:00",
+      "ModelPackageStatus": "Completed",
+      "ModelApprovalStatus": "PendingManualApproval",
+      "ModelPackageRegistrationType": "Registered"
+    }
+  ],
+  "alarm": {
+    "AlarmName": "northstar-ci-build-failure",
+    "StateValue": "OK",
+    "StateUpdatedTimestamp": "2026-10-30T14:31:19.691000-06:00",
+    "ActionsEnabled": true,
+    "Period": 300
+  },
+  "alarm_actions": [
+    {
+      "Timestamp": "2026-10-30T14:31:19.740000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-30T14:24:19.732000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-30T14:20:19.746000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-30T14:10:19.737000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T16:39:06.317000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-29T16:28:06.330000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T15:19:06.331000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    },
+    {
+      "Timestamp": "2026-10-29T15:04:06.325000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "ALARM"
+    },
+    {
+      "Timestamp": "2026-10-29T15:03:06.326000-06:00",
+      "HistorySummary": "Successfully executed action arn:aws:sns:us-east-1:278634873542:northstar-model-approvals",
+      "NotificationState": "OK"
+    }
+  ],
+  "subscriptions": [
+    {
+      "Protocol": "email",
+      "SubscriptionArn": "arn:aws:sns:us-east-1:278634873542:northstar-model-approvals:80f4e8da-76e1-4654-9ab8-7d3a8ff53f97"
+    }
+  ]
+}
+
