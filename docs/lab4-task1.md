@@ -105,3 +105,16 @@ failure/revert demonstration, other lab tasks, teardown, and tagging are separat
 - That first CI run passed data/feature tests and the SageMaker training step,
   then exposed missing model-package-group permissions in MLEngineer during
   registration. The group permissions are scoped to `northstar-churn-models`.
+- After applying that fix, commit `6ac061473601e7712b77bc58dee5c177c64feb05`
+  produced successful CodeBuild run
+  `northstar-ci:798de060-ef58-4e8b-ad40-71d02116fd9b`. It trained under the
+  SageMaker XGBoost 1.7 container, registered package **v2**, and passed **115
+  tests**, with only the initial no-Approved-champion regression skip.
+- Package v2: AUC 0.7819, precision 0.7267, recall 0.3303, baseline AUC 0.7208,
+  lift interval [0.0413, 0.0813]. The fairness warning reported a tier recall
+  gap of 0.3058. Its metrics are under `artifacts/evaluations/6ac06147/` in the
+  data bucket; a distinct final commit preserves this champion evidence.
+- On October 30, the live regression test verified v2 as the newest Approved
+  champion and passed: `champion v2 auc=0.7819; candidate auc=0.7838` for the
+  local candidate. The next CI run uses this new documentation commit, keeping
+  its candidate metrics separate from the champion's S3 key.
