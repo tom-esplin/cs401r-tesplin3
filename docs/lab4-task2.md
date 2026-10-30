@@ -56,3 +56,31 @@ Capture all evidence before teardown. Final evidence includes the three
 snapshots, complete failed and recovery logs, pipeline execution history,
 registry snapshot, and actual alarm email screenshot. A documentation push also
 triggers CI; preserve the recovery run's exact identifiers when exporting logs.
+
+## Implementation verification — October 30, 2026
+
+- CloudFormation update completed in place: only `NorthStarPipeline` and
+  `BuildFailureAlarm` changed; no resources were replaced. AWS reports the
+  explicit `main` push filter on `GitHubSource`.
+- Commit `28b74dcfb7000e539eb8e871a2027d6665c6bfe9` contains the implementation.
+  All **127 local tests passed**, including the 11 new evidence checks and
+  the live Approved-v2 regression test. The original staged `.gitignore`
+  changes were excluded from the commit.
+- The five-minute automatic-trigger probe produced no execution. The user
+  found AWS Connector for GitHub under authorized apps, not installed apps;
+  the repository's App installation must be completed before retesting with
+  a fresh push. The missing event was not replaced with a manual start.
+- The SNS email subscription was created, but the last AWS check still showed
+  PendingConfirmation. Complete confirmation before taking the BEFORE
+  snapshot. No deliberate failure has been pushed yet.
+
+## GitHub App connection repair
+
+The user installed the GitHub App and supplied the Available replacement
+connection `northstar-github-installed`:
+`arn:aws:codeconnections:us-east-1:278634873542:connection/f9929443-5743-4bb3-9c68-45828f87a6af`.
+The stack's `GitHubConnectionArn` parameter and its scoped CodePipeline role
+permission are updated together through CloudFormation. The old connection
+is retained while the replacement is verified. A fresh push after the update
+is the automatic-trigger probe; previous manually started runs are not used
+as proof of push-trigger automation.
