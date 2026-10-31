@@ -2,9 +2,8 @@
 
 ## Pipeline Stage Mapping
 
-NorthStar retains AWS CodePipeline and CodeBuild because they integrate with the
-existing AWS IAM roles, S3 data, SageMaker training and Model Registry, CloudWatch
-logs and alarms, and SNS notifications. CI runs in `us-east-1`; local commands
+I decided to retain AWS CodePipeline and CodeBuild because they integrate with the
+existing AWS services. CI runs in `us-east-1`; local commands
 prepare changes and inspect evidence, while AWS executes the tests and training.
 
 | Logical phase | CodePipeline stage | Implementation |
@@ -52,8 +51,7 @@ PendingManualApproval. See `docs/lab4-model-package.json`,
 
 ## Retraining Triggers
 
-These are automatable designs, **not deployed resources**. No production
-endpoint, production-quality metric stream, or retraining schedule is claimed.
+These are automatable designs, **not deployed resources**.
 Both triggers request a candidate; they never approve or deploy it.
 
 | Trigger | Exact condition | AWS services and action |
@@ -70,28 +68,10 @@ record the request rather than starting another training run.
 Evaluation outputs must retain prediction IDs, label-window dates, sample
 counts, and champion ARN so future alarms can be audited.
 
-### Tracking and provenance evidence
-
-`docs/lab4-mlflow-runs.txt` exports the existing `northstar-churn` experiment from
-the Lab 3 MLflow App with untruncated parameters and metrics. Its four finished
-runs cover three distinct hyperparameter combinations; no additional training
-or synthetic runs were needed. `scripts/lab4_task3.py` reproduces this export.
-
-The final green recovery build registered v7 from commit
-`a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f`. Its registry metadata contains the
-training channel URI, data timestamp, full commit, training-job ARN, metrics URI,
-and numeric evaluation metrics. `docs/lab4-training-data.json` records the S3
-object version IDs recovered as of each job's start. The data timestamp means
-the latest S3 modification of those Parquet versions; event time is recorded
-separately. Verified lineage was backfilled for v2-v7 without changing approval
-statuses. The locally trained Lab 3 v1 lacks a SageMaker training-job link; its
-original metadata is preserved and this historical gap is explicitly recorded.
-
 ## DataOps Maturity
 
 Current level: **2/4**. Processing is repeatable and tested, with partial
 integration; continuous operational feedback is incomplete.
-
 Evidence: `infrastructure/modules/storage/main.tf` defines versioned S3 storage,
 and `infrastructure/modules/glue/main.tf` manages the processing jobs. The Spark
 feature implementation in `glue-scripts/feature_engineer.py` has a pandas
