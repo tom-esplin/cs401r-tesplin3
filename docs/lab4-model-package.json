@@ -1,0 +1,106 @@
+{
+  "ModelPackageGroupName": "northstar-churn-models",
+  "ModelPackageVersion": 7,
+  "ModelPackageRegistrationType": "Registered",
+  "ModelPackageArn": "arn:aws:sagemaker:us-east-1:278634873542:model-package/northstar-churn-models/7",
+  "CreationTime": "2026-10-30 14:30:09.935000-06:00",
+  "InferenceSpecification": {
+    "Containers": [
+      {
+        "Image": "683313688378.dkr.ecr.us-east-1.amazonaws.com/sagemaker-xgboost:1.7-1",
+        "ImageDigest": "sha256:b4f13edb198529c460692015797fa1ca6a8ff1ed64a149297174d922121b8fc4",
+        "ModelDataUrl": "s3://northstar-dev-data-278634873542/artifacts/training/pipelines-9zxuloc3033h-TrainChurnModel-anhXBsM3Az/output/model.tar.gz",
+        "ModelDataETag": "e4966d43d248691c08d65a7b992d09bd",
+        "IsCheckpoint": false
+      }
+    ],
+    "SupportedTransformInstanceTypes": [
+      "ml.m5.large"
+    ],
+    "SupportedRealtimeInferenceInstanceTypes": [
+      "ml.m5.large",
+      "ml.t2.medium"
+    ],
+    "SupportedContentTypes": [
+      "text/csv"
+    ],
+    "SupportedResponseMIMETypes": [
+      "text/csv"
+    ]
+  },
+  "ModelPackageStatus": "Completed",
+  "ModelPackageStatusDetails": {
+    "ValidationStatuses": [],
+    "ImageScanStatuses": []
+  },
+  "CertifyForMarketplace": false,
+  "ModelApprovalStatus": "PendingManualApproval",
+  "CreatedBy": {
+    "IamIdentity": {
+      "Arn": "arn:aws:sts::278634873542:assumed-role/northstar-dev-MLEngineer/sagemaker-pipeline-9zxuloc3033h-RegisterChurnModel-R",
+      "PrincipalId": "AROAUBX7OYLDL7BUSQN3E:sagemaker-pipeline-9zxuloc3033h-RegisterChurnModel-R"
+    }
+  },
+  "MetadataProperties": {
+    "GeneratedBy": "arn:aws:sagemaker:us-east-1:278634873542:pipeline/northstar-churn-pipeline/execution/9zxuloc3033h"
+  },
+  "ModelMetrics": {
+    "ModelQuality": {
+      "Statistics": {
+        "ContentType": "application/json",
+        "S3Uri": "s3://northstar-dev-data-278634873542/artifacts/evaluations/a85d7a13/evaluation_metrics.json"
+      }
+    },
+    "Bias": {},
+    "Explainability": {}
+  },
+  "LastModifiedTime": "2026-10-30 20:29:10.800000-06:00",
+  "LastModifiedBy": {
+    "IamIdentity": {
+      "Arn": "arn:aws:iam::278634873542:user/tesplin",
+      "PrincipalId": "AIDAUBX7OYLDHHBYT7SXO"
+    }
+  },
+  "CustomerMetadataProperties": {
+    "commit_sha": "a85d7a13dc9bf09a66ffd0ebfdb0554f9235f81f",
+    "eval_auc_roc": "0.7819",
+    "eval_auc_vs_baseline": "0.0611",
+    "eval_baseline_auc": "0.7208",
+    "eval_baseline_auc_roc": "0.7208",
+    "eval_commit_sha": "a85d7a13",
+    "eval_eval_timestamp": "2026-10-30T20:29:48.384725+00:00",
+    "eval_lift_ci_high": "0.0813",
+    "eval_lift_ci_low": "0.0413",
+    "eval_n_val_samples": "3000",
+    "eval_positive_rate_val": "0.22",
+    "eval_precision_top10": "0.7267",
+    "eval_recall_top10": "0.3303",
+    "eval_slice_bronze_auc": "0.758",
+    "eval_slice_bronze_n": "1071",
+    "eval_slice_bronze_n_positive": "361",
+    "eval_slice_bronze_recall_flag": "False",
+    "eval_slice_bronze_recall_top10": "0.4404",
+    "eval_slice_gold_auc": "0.753",
+    "eval_slice_gold_n": "483",
+    "eval_slice_gold_n_positive": "52",
+    "eval_slice_gold_recall_flag": "True",
+    "eval_slice_gold_recall_top10": "0.1346",
+    "eval_slice_platinum_auc": "0.8773",
+    "eval_slice_platinum_n": "307",
+    "eval_slice_platinum_n_positive": "21",
+    "eval_slice_platinum_recall_flag": "True",
+    "eval_slice_platinum_recall_top10": "0.1905",
+    "eval_slice_silver_auc": "0.7087",
+    "eval_slice_silver_n": "1139",
+    "eval_slice_silver_n_positive": "226",
+    "eval_slice_silver_recall_flag": "True",
+    "eval_slice_silver_recall_top10": "0.2124",
+    "evaluation_metrics_s3_uri": "s3://northstar-dev-data-278634873542/artifacts/evaluations/a85d7a13/evaluation_metrics.json",
+    "training_data_event_time": "2026-10-29T21:58:59+00:00",
+    "training_data_s3_uri": "s3://northstar-dev-data-278634873542/features/customers/",
+    "training_data_timestamp": "2026-10-29T21:59:04+00:00",
+    "training_data_timestamp_basis": "S3 LastModified of training Parquet versions recovered as of training start",
+    "training_job_arn": "arn:aws:sagemaker:us-east-1:278634873542:training-job/pipelines-9zxuloc3033h-TrainChurnModel-anhXBsM3Az"
+  },
+  "SkipModelValidation": "None"
+}
