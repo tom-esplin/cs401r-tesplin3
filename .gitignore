@@ -11,5 +11,10 @@ __pycache__/
 artifacts/rag/
 evaluation_results/
 .venv-rag/
+venv-churn/
+*.html
 .venv-churn/
-Lab_2--Data & Feature Engineering (1).html
+data/processed/
+data/features/
+data/northstar-raw-sample.csv
+artifacts/lab4/
